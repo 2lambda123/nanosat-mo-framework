@@ -35,7 +35,7 @@ public class CheckLinkEvaluation {
     public CheckLinkEvaluation(CheckResult lastCheckResult) {
         this.evaluationResults = new ArrayList<>();
         this.lastCheckResult = lastCheckResult;
-        this.lastCheckResultTime = new Time(System.nanoTime()/1000000);
+        this.lastCheckResultTime = new Time(System.currentTimeMillis());
     }
 
     private List<EvaluationResult> evaluationResults;

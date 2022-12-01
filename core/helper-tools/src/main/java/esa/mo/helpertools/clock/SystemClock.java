@@ -48,7 +48,7 @@ public class SystemClock {
     }
 
     public static Time getTime() {
-        return usePlatformClock ? platformClockCallback.getPlatformTime() : new Time(System.nanoTime()/1000000);
+        return usePlatformClock ? platformClockCallback.getPlatformTime() : new Time(System.currentTimeMillis());
     }
 
     public static int getTimeFactor() {

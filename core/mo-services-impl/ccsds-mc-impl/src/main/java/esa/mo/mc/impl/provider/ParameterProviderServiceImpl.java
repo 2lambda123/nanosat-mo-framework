@@ -1110,7 +1110,7 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
             /*
             Logger.getLogger(ParameterProviderServiceImpl.class.getName()).log(Level.INFO,
                     "start publishing periodic parameter update with identityId: {0} at {1}",
-                    new Object[]{identityId, System.nanoTime()/1000000});
+                    new Object[]{identityId, System.currentTimeMillis()});
              */
             final ParameterValue parameterValue = manager.getParameterValue(identityId);
             final Identifier name = manager.getName(identityId);

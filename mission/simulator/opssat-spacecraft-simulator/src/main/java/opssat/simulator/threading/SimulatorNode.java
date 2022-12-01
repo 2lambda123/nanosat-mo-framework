@@ -1537,8 +1537,8 @@ public class SimulatorNode extends TaskNode {
                         this.orekitCore.setConstellationPropagationCounter(0);
                     }
                     this.logger.log(Level.FINE, "BenchmarkStart;Counter [" + counter + "]");
-                    this.logger.log(Level.FINE, "BenchmarkStartup;Counter [" + counter + "];TimeElapsed [" + (System
-                        .currentTimeMillis() - benchmarkStartupTime) + "] ms");
+                    this.logger.log(Level.FINE, "BenchmarkStartup;Counter [" + counter + "];TimeElapsed [" + ((System
+                        .nanoTime()/1000000) - benchmarkStartupTime) + "] ms");
 
                 }
                 if (benchmarkInProgress) {

@@ -682,7 +682,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
                 } catch (MALInteractionException | MALException | IOException e) {
                     LOGGER.log(Level.SEVERE, null, e);
                 }
-                return new Time(System.nanoTime()/1000000);
+                return new Time(System.currentTimeMillis());
             }
 
             @Override

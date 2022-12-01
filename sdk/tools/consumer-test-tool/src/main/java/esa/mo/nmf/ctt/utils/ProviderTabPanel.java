@@ -286,7 +286,7 @@ public class ProviderTabPanel extends javax.swing.JPanel {
                             } catch (MALInteractionException | MALException | IOException e) {
                                 LOGGER.log(Level.SEVERE, null, e);
                             }
-                            return new Time(System.nanoTime()/1000000);
+                            return new Time(System.currentTimeMillis());
                         }
 
                         @Override
@@ -371,9 +371,9 @@ public class ProviderTabPanel extends javax.swing.JPanel {
 
         public ProviderStatusAdapter(final HeartbeatConsumerServiceImpl heartbeat) throws MALInteractionException,
             MALException {
-            long timestamp = System.nanoTime()/1000000;
+            long timestamp = System.currentTimeMillis();
             double value = heartbeat.getHeartbeatStub().getPeriod().getValue();
-            lag = (System.nanoTime()/1000000) - timestamp;
+            lag = System.currentTimeMillis() - timestamp;
             period = (long) (value * 1000);
             status.setText("The provider is reachable! Beat period: " + value + " seconds");
 
@@ -398,9 +398,9 @@ public class ProviderTabPanel extends javax.swing.JPanel {
                         if (tryNumber >= 3) {
                             // Every third try...
                             try {
-                                long timestamp = (System.nanoTime()/1000000);
+                                long timestamp = System.currentTimeMillis();
                                 heartbeat.getHeartbeatStub().getPeriod();
-                                lag = (System.nanoTime()/1000000) - timestamp; // Calculate the lag
+                                lag = System.currentTimeMillis() - timestamp; // Calculate the lag
                             } catch (MALInteractionException | MALException ex) {
                                 LOGGER.log(Level.SEVERE, null, ex);
                             }
