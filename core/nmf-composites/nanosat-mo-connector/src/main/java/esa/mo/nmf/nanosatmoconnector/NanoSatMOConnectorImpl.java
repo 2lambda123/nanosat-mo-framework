@@ -90,7 +90,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
      */
     @Override
     public void init(final MonitorAndControlNMFAdapter mcAdapter) {
-        super.startTime = System.currentTimeMillis();
+        super.startTime = System.nanoTime()/1000000;
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -282,7 +282,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mcAdapter.restoreParameterValuesFromArchive();
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) (System.currentTimeMillis() -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -291,7 +291,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
 
     @Override
     public void init(final MissionPlanningNMFAdapter mpAdapter) {
-        super.startTime = System.currentTimeMillis();
+        super.startTime = System.nanoTime()/1000000;
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -352,7 +352,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mpAdapter.initialRegistrations(registration);
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) (System.currentTimeMillis() -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -360,7 +360,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
     }
 
     public void init(final MonitorAndControlNMFAdapter mcAdapter, final MissionPlanningNMFAdapter mpAdapter) {
-        super.startTime = System.currentTimeMillis();
+        super.startTime = System.nanoTime()/1000000;
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -561,7 +561,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mpAdapter.initialRegistrations(registration);
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) (System.currentTimeMillis() -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -592,7 +592,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
     public final void closeGracefully(final ObjectId source) {
         try {
             AppShutdownGuard.start();
-            long time = System.currentTimeMillis();
+            long time = System.nanoTime()/1000000;
 
             // We can close the connection to the Supervisor
             this.serviceCOMEvent.close();
@@ -657,7 +657,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
 
             // Exit the Java application
             LOGGER.log(Level.INFO, "Success! The currently running Java Virtual Machine will now terminate. " +
-                "(App closed in: {0} ms)\n", System.currentTimeMillis() - time);
+                "(App closed in: {0} ms)\n", (System.nanoTime()/1000000) - time);
         } catch (NMFException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
@@ -682,7 +682,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
                 } catch (MALInteractionException | MALException | IOException e) {
                     LOGGER.log(Level.SEVERE, null, e);
                 }
-                return new Time(System.currentTimeMillis());
+                return new Time(System.nanoTime()/1000000);
             }
 
             @Override
