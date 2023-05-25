@@ -23,6 +23,7 @@ package esa.mo.nmf.nanosatmosupervisor;
 import esa.mo.com.impl.util.COMServicesProvider;
 import esa.mo.com.impl.util.Quota;
 import esa.mo.helpertools.connections.ConfigurationProviderSingleton;
+import esa.mo.helpertools.helpers.HelperTime;
 import esa.mo.nmf.NMFProvider;
 import esa.mo.helpertools.connections.ConnectionProvider;
 import esa.mo.helpertools.connections.SingleConnectionDetails;
@@ -82,7 +83,7 @@ public abstract class NanoSatMOSupervisor extends NMFProvider {
      */
     public void init(MonitorAndControlNMFAdapter mcAdapter, PlatformServicesConsumer platformServices,
         PMBackend packageManagementBackend) {
-        super.startTime = System.nanoTime()/1000000;
+        super.startTime = HelperTime.nanoTimeInMillis();
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -148,7 +149,7 @@ public abstract class NanoSatMOSupervisor extends NMFProvider {
         final SingleConnectionDetails det = this.directoryService.getConnection().getSecondaryConnectionDetails();
         final String secondaryURI = (det != null) ? det.getProviderURI().toString() : null;
         this.writeCentralDirectoryServiceURI(primaryURI, secondaryURI);
-        LOGGER.log(Level.INFO, "NanoSat MO Supervisor initialized in " + (((float) ((System.nanoTime()/1000000) -
+        LOGGER.log(Level.INFO, "NanoSat MO Supervisor initialized in " + (((float) ((HelperTime.nanoTimeInMillis()) -
             super.startTime)) / 1000) + " seconds!");
         LOGGER.log(Level.INFO, "URI: {0}\n", primaryURI);
 
@@ -199,7 +200,7 @@ public abstract class NanoSatMOSupervisor extends NMFProvider {
     public final void closeGracefully(final ObjectId source) {
         try {
             AppShutdownGuard.start();
-            long timestamp = System.nanoTime()/1000000;
+            long timestamp = HelperTime.nanoTimeInMillis();
 
             // Acknowledge the reception of the request to close (Closing...)
             Long eventId = this.getCOMServices().getEventService().generateAndStoreEvent(
@@ -241,7 +242,7 @@ public abstract class NanoSatMOSupervisor extends NMFProvider {
 
             // Exit the Java application
             LOGGER.log(Level.INFO, "Success! The currently running Java Virtual Machine will now terminate. " +
-                "(NanoSat MO Supervisor closed in: " + ((System.nanoTime()/1000000) - timestamp) + " ms)\n");
+                "(NanoSat MO Supervisor closed in: " + ((HelperTime.nanoTimeInMillis()) - timestamp) + " ms)\n");
 
         } catch (NMFException ex) {
             LOGGER.log(Level.SEVERE, null, ex);

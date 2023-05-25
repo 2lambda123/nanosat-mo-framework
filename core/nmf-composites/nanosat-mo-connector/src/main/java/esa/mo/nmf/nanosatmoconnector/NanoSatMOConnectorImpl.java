@@ -32,6 +32,7 @@ import esa.mo.helpertools.connections.ConnectionConsumer;
 import esa.mo.helpertools.connections.ConnectionProvider;
 import esa.mo.helpertools.connections.SingleConnectionDetails;
 import esa.mo.helpertools.helpers.HelperMisc;
+import esa.mo.helpertools.helpers.HelperTime;
 import esa.mo.helpertools.misc.AppShutdownGuard;
 import esa.mo.helpertools.misc.Const;
 import esa.mo.nmf.MCRegistration;
@@ -90,7 +91,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
      */
     @Override
     public void init(final MonitorAndControlNMFAdapter mcAdapter) {
-        super.startTime = System.nanoTime()/1000000;
+        super.startTime = HelperTime.nanoTimeInMillis();
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -282,7 +283,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mcAdapter.restoreParameterValuesFromArchive();
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((HelperTime.nanoTimeInMillis()) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -291,7 +292,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
 
     @Override
     public void init(final MissionPlanningNMFAdapter mpAdapter) {
-        super.startTime = System.nanoTime()/1000000;
+        super.startTime = HelperTime.nanoTimeInMillis();
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -352,7 +353,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mpAdapter.initialRegistrations(registration);
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((HelperTime.nanoTimeInMillis()) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -360,7 +361,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
     }
 
     public void init(final MonitorAndControlNMFAdapter mcAdapter, final MissionPlanningNMFAdapter mpAdapter) {
-        super.startTime = System.nanoTime()/1000000;
+        super.startTime = HelperTime.nanoTimeInMillis();
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -561,7 +562,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
             mpAdapter.initialRegistrations(registration);
         }
 
-        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((System.nanoTime()/1000000) -
+        LOGGER.log(Level.INFO, "NanoSat MO Connector initialized in " + (((float) ((HelperTime.nanoTimeInMillis()) -
             super.startTime)) / 1000) + " seconds!");
 
         final String uri = directoryService.getConnection().getPrimaryConnectionDetails().getProviderURI().toString();
@@ -592,7 +593,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
     public final void closeGracefully(final ObjectId source) {
         try {
             AppShutdownGuard.start();
-            long time = System.nanoTime()/1000000;
+            long time = HelperTime.nanoTimeInMillis();
 
             // We can close the connection to the Supervisor
             this.serviceCOMEvent.close();
@@ -657,7 +658,7 @@ public class NanoSatMOConnectorImpl extends NMFProvider {
 
             // Exit the Java application
             LOGGER.log(Level.INFO, "Success! The currently running Java Virtual Machine will now terminate. " +
-                "(App closed in: {0} ms)\n", (System.nanoTime()/1000000) - time);
+                "(App closed in: {0} ms)\n", (HelperTime.nanoTimeInMillis()) - time);
         } catch (NMFException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }

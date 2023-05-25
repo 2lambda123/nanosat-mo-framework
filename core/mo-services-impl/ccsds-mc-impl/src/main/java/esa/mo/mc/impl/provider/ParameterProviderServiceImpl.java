@@ -109,7 +109,7 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
     private MonitorValuePublisher publisher;
     private boolean isRegistered = false;
     private final Object lock = new Object();
-    private final AtomicLong pValUniqueObjId = new AtomicLong(System.nanoTime()/1000000);
+    private final AtomicLong pValUniqueObjId = new AtomicLong(HelperTime.nanoTimeInMillis());
     protected ParameterManager manager;
     private PeriodicReportingManager periodicReportingManager;
     private final ConnectionProvider connection = new ConnectionProvider();

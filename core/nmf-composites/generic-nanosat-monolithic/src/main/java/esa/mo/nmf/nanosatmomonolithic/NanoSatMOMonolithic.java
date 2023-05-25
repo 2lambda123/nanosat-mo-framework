@@ -22,6 +22,7 @@ package esa.mo.nmf.nanosatmomonolithic;
 
 import esa.mo.com.impl.util.COMServicesProvider;
 import esa.mo.helpertools.connections.ConfigurationProviderSingleton;
+import esa.mo.helpertools.helpers.HelperTime;
 import esa.mo.nmf.NMFProvider;
 import esa.mo.helpertools.connections.ConnectionProvider;
 import esa.mo.helpertools.helpers.HelperMisc;
@@ -64,7 +65,7 @@ public abstract class NanoSatMOMonolithic extends NMFProvider {
      * @param platformServices Platform Services
      */
     public void init(final MonitorAndControlNMFAdapter mcAdapter, final PlatformServicesConsumer platformServices) {
-        super.startTime = (System.nanoTime()/1000000);
+        super.startTime = (HelperTime.nanoTimeInMillis());
         HelperMisc.loadPropertiesFile(); // Loads: provider.properties; settings.properties; transport.properties
         ConnectionProvider.resetURILinks();
 
@@ -119,7 +120,7 @@ public abstract class NanoSatMOMonolithic extends NMFProvider {
         }
 
         Logger.getLogger(NanoSatMOMonolithic.class.getName()).log(Level.INFO, "NanoSat MO Monolithic initialized in " +
-            (((float) ((System.nanoTime()/1000000) - super.startTime)) / 1000) + " seconds!");
+            (((float) ((HelperTime.nanoTimeInMillis()) - super.startTime)) / 1000) + " seconds!");
         final String uri = directoryService.getConnection().getConnectionDetails().getProviderURI().toString();
         Logger.getLogger(NanoSatMOMonolithic.class.getName()).log(Level.INFO, "URI: {0}\n", uri);
     }
@@ -138,7 +139,7 @@ public abstract class NanoSatMOMonolithic extends NMFProvider {
     public final void closeGracefully(final ObjectId source) {
         try {
             AppShutdownGuard.start();
-            long time = (System.nanoTime()/1000000);
+            long time = (HelperTime.nanoTimeInMillis());
 
             // Acknowledge the reception of the request to close (Closing...)
             Long eventId = this.getCOMServices().getEventService().generateAndStoreEvent(
@@ -182,7 +183,7 @@ public abstract class NanoSatMOMonolithic extends NMFProvider {
             // Exit the Java application
             Logger.getLogger(NanoSatMOMonolithic.class.getName()).log(Level.INFO,
                 "Success! The currently running Java Virtual Machine will now terminate. " + "(App closed in: " +
-                    ((System.nanoTime()/1000000) - time) + " ms)\n");
+                    ((HelperTime.nanoTimeInMillis()) - time) + " ms)\n");
         } catch (NMFException ex) {
             Logger.getLogger(NanoSatMOMonolithic.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -102,7 +102,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
     private PeriodicSamplingManager periodicSamplingManager;
     private final ConnectionProvider connection = new ConnectionProvider();
     private ConfigurationChangeListener configurationAdapter;
-    private final AtomicLong aValUniqueObjId = new AtomicLong(System.nanoTime()/1000000);
+    private final AtomicLong aValUniqueObjId = new AtomicLong(HelperTime.nanoTimeInMillis());
 
     /**
      * creates the MAL objects, the publisher used to create updates and starts

@@ -170,4 +170,7 @@ public class HelperTime {
         return (HelperTime.fromMilliToNano(timestamp.getTime() - (timestamp.getTime() % 1000)) + timestamp.getNanos());
     }
 
+    public static long nanoTimeInMillis() {
+        return System.nanoTime() / 1000000;
+    }
 }

@@ -20,6 +20,7 @@
  */
 package esa.mo.platform.impl.provider.gen;
 
+import esa.mo.helpertools.helpers.HelperTime;
 import esa.mo.helpertools.misc.Const;
 import esa.mo.platform.impl.util.HelperGPS;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public abstract class GPSNMEAonlyAdapter implements GPSAdapterInterface {
 
     @Override
     public synchronized Position getCurrentPosition() {
-        if ((System.nanoTime()/1000000) - lastPositionTime < resultCacheValidityMs)
+        if ((HelperTime.nanoTimeInMillis()) - lastPositionTime < resultCacheValidityMs)
             return lastPosition;
         String nmeaLog = "";
         try {
@@ -64,13 +65,13 @@ public abstract class GPSNMEAonlyAdapter implements GPSAdapterInterface {
                 "The current position could not be retrieved! The receiver is likely offline or not returning proper position.",
                 ex);
         }
-        lastPositionTime = System.nanoTime()/1000000;
+        lastPositionTime = HelperTime.nanoTimeInMillis();
         return lastPosition;
     }
 
     @Override
     public SatelliteInfoList getSatelliteInfoList() {
-        if ((System.nanoTime()/1000000) - lastSatInfoTime < resultCacheValidityMs)
+        if ((HelperTime.nanoTimeInMillis()) - lastSatInfoTime < resultCacheValidityMs)
             return lastSatInfo;
         try {
             lastSatInfo = null;
@@ -83,7 +84,7 @@ public abstract class GPSNMEAonlyAdapter implements GPSAdapterInterface {
         } catch (IOException ex) {
             LOGGER.log(Level.SEVERE, null, ex);
         }
-        lastSatInfoTime = System.nanoTime()/1000000;
+        lastSatInfoTime = HelperTime.nanoTimeInMillis();
         return lastSatInfo;
     }
 

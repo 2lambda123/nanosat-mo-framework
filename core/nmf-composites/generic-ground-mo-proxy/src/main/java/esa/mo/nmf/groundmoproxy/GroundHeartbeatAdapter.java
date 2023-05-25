@@ -48,9 +48,9 @@ public class GroundHeartbeatAdapter extends HeartbeatAdapter {
         throws MALInteractionException, MALException {
         this.moProxy = moProxy;
         this.heartbeat = heartbeat;
-        long timestamp = (System.nanoTime()/1000000);
+        long timestamp = (HelperTime.nanoTimeInMillis());
         double value = heartbeat.getHeartbeatStub().getPeriod().getValue();
-        lag = (System.nanoTime()/1000000) - timestamp;
+        lag = (HelperTime.nanoTimeInMillis()) - timestamp;
         period = (long) (value * 1000);
         LOGGER.log(Level.INFO, "The provider is reachable! Beat period: {0} seconds", value);
         moProxy.setNmsAliveStatus(true);
@@ -128,9 +128,9 @@ public class GroundHeartbeatAdapter extends HeartbeatAdapter {
                     }
                     if (attemptCounter >= LAG_MEASUREMENT_INTERVAL) {
                         try {
-                            long timestamp = (System.nanoTime()/1000000);
+                            long timestamp = (HelperTime.nanoTimeInMillis());
                             heartbeat.getHeartbeatStub().getPeriod();
-                            lag = (System.nanoTime()/1000000) - timestamp; // Calculate the lag
+                            lag = (HelperTime.nanoTimeInMillis()) - timestamp; // Calculate the lag
                         } catch (MALInteractionException | MALException ex) {
                             LOGGER.log(Level.SEVERE, null, ex);
                         }
