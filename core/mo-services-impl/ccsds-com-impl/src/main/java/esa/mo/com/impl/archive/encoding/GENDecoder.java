@@ -29,6 +29,7 @@ import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.FineTime;
 import org.ccsds.moims.mo.mal.structures.Identifier;
+import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.ObjectRef;
 import org.ccsds.moims.mo.mal.structures.Time;
 import org.ccsds.moims.mo.mal.structures.UInteger;
@@ -141,7 +142,14 @@ public abstract class GENDecoder implements MALDecoder {
 
     @Override
     public ObjectRef decodeObjectRef() throws MALException {
-        return new ObjectRef(sourceBuffer.getString(), new Identifier(sourceBuffer.getString()),
+        IdentifierList decodedDomain = new IdentifierList();
+        int length = sourceBuffer.getUnsignedInt();
+
+        for (int i = 0; i < length; i++) {
+            decodedDomain.add(new Identifier(sourceBuffer.getString()));
+        }
+
+        return new ObjectRef(decodedDomain, new Identifier(sourceBuffer.getString()),
                 new Identifier(sourceBuffer.getString()), new Identifier(sourceBuffer.getString()),
                 new UInteger(sourceBuffer.getUnsignedLong32()));
     }

@@ -494,7 +494,13 @@ public abstract class GENEncoder implements MALListEncoder {
     public void encodeObjectRef(final ObjectRef value) throws IllegalArgumentException, MALException {
         try {
             checkForNull(value);
-            outputStream.addString(value.getDomain());
+            int length = value.getDomain().size();
+            outputStream.addUnsignedInt(length);
+
+            for (int i = 0; i < length; i++) {
+                outputStream.addString(value.getDomain().get(i).getValue());
+            }
+
             outputStream.addString(value.getArea().getValue());
             outputStream.addString(value.getType().getValue());
             outputStream.addString(value.getKey().getValue());
