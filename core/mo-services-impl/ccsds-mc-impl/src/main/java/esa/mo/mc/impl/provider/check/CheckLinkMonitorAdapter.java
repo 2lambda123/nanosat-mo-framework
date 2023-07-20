@@ -24,7 +24,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ccsds.moims.mo.com.event.consumer.EventAdapter;
 import org.ccsds.moims.mo.com.structures.ObjectDetails;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
@@ -51,14 +51,14 @@ public class CheckLinkMonitorAdapter extends EventAdapter {
     }
 
     @Override
-    public void monitorEventRegisterErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+    public void monitorEventRegisterErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
         Logger.getLogger(CheckLinkMonitorAdapter.class.getName()).log(Level.SEVERE,
                 "registration for monitorEvents failed with error {0}", error);
         super.monitorEventRegisterErrorReceived(msgHeader, error, qosProperties);
     }
 
     @Override
-    public void monitorEventNotifyErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+    public void monitorEventNotifyErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
         Logger.getLogger(CheckLinkMonitorAdapter.class.getName()).log(Level.SEVERE,
                 "monitorEvents notification failed with error {0}", error);
         super.monitorEventNotifyErrorReceived(msgHeader, error, qosProperties);

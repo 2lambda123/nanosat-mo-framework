@@ -62,7 +62,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Blob;
@@ -199,15 +199,15 @@ public class ArchiveSyncProviderServiceImpl extends ArchiveSyncInheritanceSkelet
     ArrayList<COMObjectEntity> perObjs;
 
     for (int i = 0; i < objectTypes.size(); i++) {
-      ArchiveQuery archiveQuery = new ArchiveQuery();
-      archiveQuery.setStartTime(from);
-      archiveQuery.setEndTime(until);
-      archiveQuery.setDomain(null);
-      archiveQuery.setNetwork(null);
-      archiveQuery.setProvider(null);
-      archiveQuery.setRelated(new Long(0));
-      archiveQuery.setSource(null);
-      archiveQuery.setSortFieldName(null);
+      ArchiveQuery archiveQuery = new ArchiveQuery(null, 
+            null,
+            null,
+            new Long(0),
+            null,
+            from,
+            until,
+            null,
+            null);
 
       perObjs = manager.queryCOMObjectEntity(objectTypes.get(i), archiveQuery, null);
       latestSync = until;
@@ -226,7 +226,7 @@ public class ArchiveSyncProviderServiceImpl extends ArchiveSyncInheritanceSkelet
     final Dispatcher dispatcher = dispatchers.get(transactionTicket);
 
     if (dispatcher == null) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
     }
 
     interaction.sendAcknowledgement();
@@ -281,7 +281,7 @@ public class ArchiveSyncProviderServiceImpl extends ArchiveSyncInheritanceSkelet
     final Dispatcher dispatcher = dispatchers.get(transactionTicket);
 
     if (dispatcher == null) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
     }
 
     dispatcher.clear();

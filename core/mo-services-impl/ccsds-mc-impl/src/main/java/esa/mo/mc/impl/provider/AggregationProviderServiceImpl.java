@@ -50,7 +50,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -320,7 +320,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.7.8.3.1 a, b
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         // requirement: 3.7.8.2.e
@@ -395,10 +395,10 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.7.9.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.7.9.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
         
         LongList output = new LongList();
@@ -482,10 +482,10 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.7.10.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.7.10.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         // requirement: 3.7.10.2.i (This part of the code is not reached if an error is thrown)
@@ -539,7 +539,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
         //if there is one name unknown, fail with an unknown error and dont return the found entries.
         if (!unkIndexList.isEmpty()) // requirement: 3.7.11.3.1
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         return outLongLst;
@@ -602,12 +602,12 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
         // Errors
         if (!invIndexList.isEmpty()) // requirement: 3.7.10.2.2
         {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!dupIndexList.isEmpty()) // requirement: 3.7.10.2.3
         {
-            throw new MALInteractionException(new MALStandardError(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
         }
 
         ObjectId source = manager.storeCOMOperationActivity(interaction); //requirement: 3.7.4.g, h
@@ -681,12 +681,12 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
         // Errors
         if (!unkIndexList.isEmpty()) // requirement: 3.7.13.3.1
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         if (!invIndexList.isEmpty()) // requirement: 3.7.13.3.2
         {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         LongList newDefIds = new LongList();
@@ -740,7 +740,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
         // Errors
         if (!unkIndexList.isEmpty()) // requirement: 3.3.14.3.1 (error: a, b)
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         // requirement: 3.7.14.2.f (Inserting the errors before this line guarantees that the requirement is met)
         for (Long removalItem : removalLst) {

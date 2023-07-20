@@ -111,10 +111,9 @@ public class PersistProviderConfiguration {
             ConfigurationObjectDetailsList archObj = new ConfigurationObjectDetailsList(1);
             ConfigurationObjectDetails providerObjects = new ConfigurationObjectDetails();
             ConfigurationObjectSetList setList = new ConfigurationObjectSetList(1);
-            ConfigurationObjectSet set = new ConfigurationObjectSet();
-            set.setDomain(ConfigurationProviderSingleton.getDomain());
-            set.setObjType(ConfigurationServiceInfo.SERVICECONFIGURATION_OBJECT_TYPE);
-            set.setObjInstIds(objIds);
+            ConfigurationObjectSet set = new ConfigurationObjectSet(ConfigurationServiceInfo.SERVICECONFIGURATION_OBJECT_TYPE,
+            ConfigurationProviderSingleton.getDomain(),
+            objIds);
 
             setList.add(set);
             providerObjects.setConfigObjects(setList);

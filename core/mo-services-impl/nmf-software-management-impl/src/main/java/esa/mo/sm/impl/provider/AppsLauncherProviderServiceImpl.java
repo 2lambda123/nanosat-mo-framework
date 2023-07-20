@@ -53,7 +53,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -306,12 +306,12 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
 
     // Errors
     if (!invIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
           invIndexList));
     }
 
     if (!unkIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER,
           unkIndexList));
     }
 
@@ -334,7 +334,7 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
         intIndexList.add(new UInteger(i));
         Logger.getLogger(AppsLauncherManager.class.getName()).log(Level.INFO,
             "Not able to start the application process...", ex);
-        throw new MALInteractionException(new MALStandardError(MALHelper.INTERNAL_ERROR_NUMBER,
+        throw new MALInteractionException(new MOErrorException(MALHelper.INTERNAL_ERROR_NUMBER,
             intIndexList));
       }
     }
@@ -380,12 +380,12 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
 
     // Errors
     if (!invIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
           invIndexList));
     }
 
     if (!unkIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER,
           unkIndexList));
     }
 
@@ -472,17 +472,17 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
 
     // Errors
     if (!unkIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER,
           unkIndexList));
     }
 
     if (!invIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
           invIndexList));
     }
 
     if (!intIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.INTERNAL_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.INTERNAL_ERROR_NUMBER,
           intIndexList));
     }
 
@@ -530,7 +530,7 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
 
     if (!unkIndexList.isEmpty()) {
       throw new MALInteractionException(
-              new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+              new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
     }
 
     for (Long id : ids) { // Is the app running?

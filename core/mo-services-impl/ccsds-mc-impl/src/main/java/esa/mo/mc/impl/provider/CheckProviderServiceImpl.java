@@ -47,7 +47,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
@@ -274,10 +274,10 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         }
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.12.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.5.12.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         //operation call received
@@ -337,7 +337,7 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         //ERROR
         //returning the error without sending any result, just send an ackknowledgement error and end.
         if (!unkIndexList.isEmpty()) {  //requirement: 3.5.9.3.1
-            interaction.sendError(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            interaction.sendError(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
             return;
         }
         interaction.sendAcknowledgement();
@@ -444,10 +444,10 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.12.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.5.12.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         // requirement: 3.5.12.2.i (This part of the code is not reached if an error is thrown)
@@ -531,7 +531,7 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
 
         // requirement: 3.5.13.2.f: if errors -> no evaluation
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.13.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         //3.5.3.p trigger the check 
@@ -578,7 +578,7 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         // Errors
         if (!unkIndexList.isEmpty()) // requirement: 3.3.14.3.1 (error: a and b)
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         for (Long identityId : identityIds) {
@@ -633,11 +633,11 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         // requirement: 3.5.15.2.i by checking errors first
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.5.15.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!dupIndexList.isEmpty()) { // requirement: 3.5.15.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
         }
 
         // requirement: 3.5.15.2.e, m
@@ -698,14 +698,14 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         // requirement: 3.5.17.2.j by checking errors first
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.5.17.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.17.3.2
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!refErrorIndexList.isEmpty()) { // requirement: 3.5.17.3.3
-            throw new MALInteractionException(new MALStandardError(MCHelper.REFERENCED_ERROR_NUMBER, refErrorIndexList));
+            throw new MALInteractionException(new MOErrorException(MCHelper.REFERENCED_ERROR_NUMBER, refErrorIndexList));
         }
 
         LongList newDefIds = new LongList();
@@ -774,10 +774,10 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.18.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!refErrorIndexList.isEmpty()) { // requirement: 3.5.18.3.2
-            throw new MALInteractionException(new MALStandardError(MCHelper.REFERENCED_ERROR_NUMBER, refErrorIndexList));
+            throw new MALInteractionException(new MOErrorException(MCHelper.REFERENCED_ERROR_NUMBER, refErrorIndexList));
         }
 
         // requirement: 3.5.18.2.g (Inserting the errors before this line guarantees that the requirement is met)
@@ -825,10 +825,10 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         //requirement: 3.5.3.n -> change rejected
         // Errors
         if (!invIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         ObjectInstancePairList outIdPairLst = new ObjectInstancePairList();
@@ -885,7 +885,7 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
 
         // Errors 3.5.19.2.f
         if (!unkIndexList.isEmpty()) { // requirement: 3.5.19.3.1 (error: a, b)
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         // requirement: 3.5.19.2.f (Inserting the errors before this line guarantees that the requirement is met)
@@ -934,7 +934,7 @@ public class CheckProviderServiceImpl extends CheckInheritanceSkeleton {
         // Errors
         if (!unkIndexList.isEmpty()) // requirement: 3.3.15.3.1 (error: a and b)
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         CheckLinkSummaryList checkLinkSummaries = new CheckLinkSummaryList(checkLinkIds.size());

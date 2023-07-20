@@ -292,7 +292,7 @@ public class MCSnapNMFAdapter extends MonitorAndControlNMFAdapter
     @Override
     public void takePictureAckErrorReceived(
         org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-        org.ccsds.moims.mo.mal.MALStandardError error, java.util.Map qosProperties)
+        org.ccsds.moims.mo.mal.MOErrorException error, java.util.Map qosProperties)
     {
       try {
         connector.reportActionExecutionProgress(false, 1, STAGE_ACK, TOTAL_STAGES,
@@ -306,7 +306,7 @@ public class MCSnapNMFAdapter extends MonitorAndControlNMFAdapter
     @Override
     public void takePictureResponseErrorReceived(
         org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-        org.ccsds.moims.mo.mal.MALStandardError error, java.util.Map qosProperties)
+        org.ccsds.moims.mo.mal.MOErrorException error, java.util.Map qosProperties)
     {
       try {
         connector.reportActionExecutionProgress(false, 1, STAGE_RSP, TOTAL_STAGES,

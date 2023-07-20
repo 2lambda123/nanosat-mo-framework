@@ -34,7 +34,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Duration;
@@ -159,7 +159,7 @@ public class ActionProxyServiceImpl extends ActionInheritanceSkeleton {
             }
 
             @Override
-            public void submitActionErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+            public void submitActionErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
                 Logger.getLogger(ActionProxyServiceImpl.class.getName()).log(Level.WARNING,
                         "The Action could not be submitted to the provider. {0}", error);
             }
@@ -182,7 +182,7 @@ public class ActionProxyServiceImpl extends ActionInheritanceSkeleton {
 
         // 3.2.10.3.2
         if (!manager.existsDef(actionDetails.getDefInstId())) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
         }
 
         // 3.2.10.2.c
@@ -190,7 +190,7 @@ public class ActionProxyServiceImpl extends ActionInheritanceSkeleton {
 
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.2.9.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         return accepted;

@@ -38,7 +38,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.FineTime;
 import org.ccsds.moims.mo.mal.structures.FineTimeList;
@@ -329,7 +329,7 @@ public class ParameterManager extends MCManager
       MALInteractionException
   {
     if (!this.existsIdentity(identityId)) {  // The Parameter does not exist
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER,
           identityId));
     }
 

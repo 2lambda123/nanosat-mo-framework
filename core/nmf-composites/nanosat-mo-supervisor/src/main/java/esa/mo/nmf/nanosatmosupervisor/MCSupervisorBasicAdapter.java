@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.structures.UInteger;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
@@ -191,13 +191,13 @@ public class MCSupervisorBasicAdapter extends MonitorAndControlNMFAdapter {
   private class GPSConsumerAdapter extends GPSAdapter {
 
     @Override
-    public void getNMEASentenceResponseErrorReceived(MALMessageHeader msgHeader, MALStandardError error,
+    public void getNMEASentenceResponseErrorReceived(MALMessageHeader msgHeader, MOErrorException error,
         Map qosProperties) {
       LOGGER.log(Level.WARNING, "Received response error");
     }
 
     @Override
-    public void getNMEASentenceAckErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+    public void getNMEASentenceAckErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
       LOGGER.log(Level.WARNING, "Received ACK error");
     }
 

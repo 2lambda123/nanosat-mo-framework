@@ -364,14 +364,14 @@ public class PayloadsTestMCAdapter extends MonitorAndControlNMFAdapter
 
       @Override
       public void getSatellitesInfoAckErrorReceived(org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-          org.ccsds.moims.mo.mal.MALStandardError error, java.util.Map qosProperties)
+          org.ccsds.moims.mo.mal.MOErrorException error, java.util.Map qosProperties)
       {
         sem.release();
       }
 
       @Override
       public void getSatellitesInfoResponseErrorReceived(org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-          org.ccsds.moims.mo.mal.MALStandardError error, java.util.Map qosProperties)
+          org.ccsds.moims.mo.mal.MOErrorException error, java.util.Map qosProperties)
       {
         sem.release();
       }

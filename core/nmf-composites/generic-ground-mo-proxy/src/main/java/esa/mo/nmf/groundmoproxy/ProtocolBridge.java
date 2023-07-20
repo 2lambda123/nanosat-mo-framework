@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ccsds.moims.mo.mal.MALException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.URI;
 import org.ccsds.moims.mo.mal.transport.MALEndpoint;
@@ -95,7 +95,7 @@ public class ProtocolBridge {
         }
 
         @Override
-        public void onTransmitError(MALEndpoint callingEndpoint, MALMessageHeader srcMessageHeader, MALStandardError err, Map qosMap) {
+        public void onTransmitError(MALEndpoint callingEndpoint, MALMessageHeader srcMessageHeader, MOErrorException err, Map qosMap) {
             throw new UnsupportedOperationException("Not supported yet.");
         }
 

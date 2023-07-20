@@ -35,7 +35,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -218,11 +218,11 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
   private void isCapturePossible(final CameraSettings settings) throws MALInteractionException
   {
     if (!adapter.isUnitAvailable()) {
-      throw new MALInteractionException(new MALStandardError(
+      throw new MALInteractionException(new MOErrorException(
           PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     if (cameraInUse) { // Is the Camera unit in use?
-      throw new MALInteractionException(new MALStandardError(
+      throw new MALInteractionException(new MOErrorException(
           PlatformHelper.DEVICE_IN_USE_ERROR_NUMBER, null));
     }
     final PixelResolutionList availableResolutions = adapter.getAvailableResolutions();
@@ -238,7 +238,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
 
     // If not, then send the available resolutions to the consumer so they can pick...
     if (!isResolutionAvailable) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
           availableResolutions));
     }
 
@@ -252,7 +252,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
 
     // If not, then send the available formats to the consumer so they can pick...
     if (!isFormatsAvailable) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
           availableFormats));
     }
   }
@@ -273,14 +273,14 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
 
       // Is the requested streaming rate less than the minimum period?
       if (streamingRate.getValue() < minimumPeriod.getValue()) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
             minimumPeriod));
       }
 
       // Is the requested streaming rate less than the service lowest minimum period?
       if (streamingRate.getValue() < serviceLowestMinimumPeriod.getValue()) {
         // This is a protection to avoid having crazy implementations with super low streaming rates!
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
             serviceLowestMinimumPeriod));
       }
 
@@ -289,7 +289,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
       if (firstEntityKey.getValue() == null
           || "*".equals(firstEntityKey.getValue())
           || "".equals(firstEntityKey.getValue())) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
       }
 
       cameraInUse = true;
@@ -317,7 +317,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
       MALException
   {
     if (!adapter.isUnitAvailable()) {
-      throw new MALInteractionException(new MALStandardError(
+      throw new MALInteractionException(new MOErrorException(
           PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     // Get some preview Picture from the camera...
@@ -325,7 +325,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
       try {
         return adapter.getPicturePreview();
       } catch (IOException ex) {
-        throw new MALInteractionException(new MALStandardError(
+        throw new MALInteractionException(new MOErrorException(
             PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
       }
     }
@@ -350,7 +350,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
             "The picture has been sent!");
 
       } catch (IOException ex) {
-        interaction.sendError(new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER,
+        interaction.sendError(new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER,
             null));
       }
     }
@@ -374,7 +374,7 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
             "The picture has been sent!");
 
       } catch (IOException ex) {
-        interaction.sendError(new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER,
+        interaction.sendError(new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER,
             null));
       }
     }

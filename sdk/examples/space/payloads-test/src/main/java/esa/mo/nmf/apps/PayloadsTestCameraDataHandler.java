@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ccsds.moims.mo.mal.MALException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
 import org.ccsds.moims.mo.platform.camera.consumer.CameraAdapter;
 import org.ccsds.moims.mo.platform.camera.structures.Picture;
@@ -151,7 +151,7 @@ public class PayloadsTestCameraDataHandler extends CameraAdapter
   @Override
   public void takePictureAckErrorReceived(
       org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-      org.ccsds.moims.mo.mal.MALStandardError error,
+      org.ccsds.moims.mo.mal.MOErrorException error,
       java.util.Map qosProperties)
   {
     try {
@@ -168,7 +168,7 @@ public class PayloadsTestCameraDataHandler extends CameraAdapter
 
   @Override
   public void takeAutoExposedPictureAckErrorReceived(MALMessageHeader msgHeader,
-      MALStandardError error, Map qosProperties)
+      MOErrorException error, Map qosProperties)
   {
     takePictureAckErrorReceived(msgHeader, error, qosProperties);
   }
@@ -177,7 +177,7 @@ public class PayloadsTestCameraDataHandler extends CameraAdapter
   @Override
   public void takePictureResponseErrorReceived(
       org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-      org.ccsds.moims.mo.mal.MALStandardError error,
+      org.ccsds.moims.mo.mal.MOErrorException error,
       java.util.Map qosProperties)
   {
     try {
@@ -194,7 +194,7 @@ public class PayloadsTestCameraDataHandler extends CameraAdapter
 
   @Override
   public void takeAutoExposedPictureResponseErrorReceived(MALMessageHeader msgHeader,
-      MALStandardError error, Map qosProperties)
+      MOErrorException error, Map qosProperties)
   {
     takePictureResponseErrorReceived(msgHeader, error, qosProperties); // To change body of generated methods, choose Tools | Templates.
   }

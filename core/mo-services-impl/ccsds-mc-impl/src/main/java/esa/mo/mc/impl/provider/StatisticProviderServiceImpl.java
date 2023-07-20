@@ -45,7 +45,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -367,10 +367,10 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement 3.6.7.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) {// requirement 3.6.7.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         //find the statLinkIds that are to be reported
@@ -548,10 +548,10 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.6.12.2.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.6.12.2.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         // requirement: 3.6.8.2.g (This part of the code is only reached if no error was raised)
@@ -692,10 +692,10 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.6.12.2.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         if (!invIndexList.isEmpty()) { // requirement: 3.6.12.2.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         // requirement: 3.6.12.2.i (This part of the code is only reached if no error was raised)
@@ -768,11 +768,11 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.6.14.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!unkIndexList.isEmpty()) { // requirement: 3.6.14.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         // If no errors, then add!  // requirement: 3.6.14.2.i
@@ -834,11 +834,11 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
         }
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.6.15.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!unkIndexList.isEmpty()) { // requirement: 3.6.15.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         LongList newDefIds = new LongList();
@@ -890,7 +890,7 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.6.15.3 (error: a, b)
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         // requirement: 3.6.15.3.e (Inserting the errors before this line guarantees that the requirement is met)
@@ -934,7 +934,7 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
         // Errors
         if (!unkIndexList.isEmpty()) // requirement: 3.6.13.3.1 (error: a and b)
         {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         StatisticLinkSummaryList statLinkSummaries = new StatisticLinkSummaryList(statLinkIds.size());

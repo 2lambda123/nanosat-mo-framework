@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
@@ -464,7 +464,7 @@ public class ActionConsumerPanel extends javax.swing.JPanel {
                 }
 
                 @Override
-                public void listDefinitionErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+                public void listDefinitionErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
                     JOptionPane.showMessageDialog(null, "There was an error during the listDefinition operation.", "Error", JOptionPane.PLAIN_MESSAGE);
                     Logger.getLogger(ActionConsumerPanel.class.getName()).log(Level.SEVERE, null, error);
                 }

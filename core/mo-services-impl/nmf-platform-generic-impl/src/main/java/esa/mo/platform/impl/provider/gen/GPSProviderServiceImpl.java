@@ -47,7 +47,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -244,7 +244,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) { // Is the unit available?
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
 
     interaction.sendAcknowledgement();
@@ -253,7 +253,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
       String nmeaSentence = adapter.getNMEASentence(sentenceIdentifier);
       interaction.sendResponse(nmeaSentence);
     } catch (IOException ex) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
     }
   }
 
@@ -271,7 +271,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
     }
 
     if (pos == null) { // We never got a position! So we don't know the position!
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
     }
 
     response.setBodyElement0(pos);
@@ -287,14 +287,14 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) {
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
 
     interaction.sendAcknowledgement();
     Position position = adapter.getCurrentPosition();
     if (position == null) {
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
 
     synchronized (MUTEX) { // Store the latest Position
@@ -311,13 +311,13 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) {
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     interaction.sendAcknowledgement();
     SatelliteInfoList sats = adapter.getSatelliteInfoList();
     if (sats == null) {
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     interaction.sendResponse(sats);
   }
@@ -383,12 +383,12 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
     // Errors
     if (!dupIndexList.isEmpty()) { // requirement: 3.4.10.3.1
       throw new MALInteractionException(
-          new MALStandardError(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
+          new MOErrorException(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
     }
 
     if (!invIndexList.isEmpty()) { // requirement: 3.4.10.3.2
       throw new MALInteractionException(
-          new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+          new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
     }
 
     if (configurationAdapter != null) {
@@ -430,7 +430,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
     // Errors
     if (!unkIndexList.isEmpty()) {
       throw new MALInteractionException(
-          new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+          new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
     }
 
     for (Long tempLong2 : tempLongLst) {
@@ -461,7 +461,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
     }
 
     if (position == null && positionDeviation == null && velocity == null && velocityDeviation == null) { // We never got the data! So we don't know the data!
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
     }
 
     double elapsedTime = (System.currentTimeMillis() - startTime) / 1000; // convert from milli to sec
@@ -476,7 +476,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) { // Is the unit available?
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
 
     interaction.sendAcknowledgement();
@@ -521,7 +521,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
 
     } catch (IOException e) {
       interaction
-          .sendError(new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          .sendError(new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
       e.printStackTrace();
     }
 
@@ -532,7 +532,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) { // Is the unit available?
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     interaction.sendAcknowledgement();
     TwoLineElementSet tle = adapter.getTLE();
@@ -751,7 +751,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) { // Is the unit available?
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     interaction.sendAcknowledgement();
     try {
@@ -759,7 +759,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
       interaction.sendResponse(resp);
     } catch (IOException e) {
       interaction
-          .sendError(new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          .sendError(new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
       e.printStackTrace();
     }
   }
@@ -770,7 +770,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
   {
     if (!adapter.isUnitAvailable()) { // Is the unit available?
       throw new MALInteractionException(
-          new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     interaction.sendAcknowledgement();
     try {
@@ -778,7 +778,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
       interaction.sendResponse(resp);
     } catch (IOException e) {
       interaction
-          .sendError(new MALStandardError(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
+          .sendError(new MOErrorException(PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
       e.printStackTrace();
     }
   }

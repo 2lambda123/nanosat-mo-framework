@@ -26,7 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ccsds.moims.mo.com.structures.ObjectId;
 import org.ccsds.moims.mo.com.structures.ObjectKey;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
@@ -61,7 +61,7 @@ public class ParameterMonitorAdapter extends ParameterAdapter {
     }
 
     @Override
-    public void monitorValueRegisterErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+    public void monitorValueRegisterErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
         Logger.getLogger(CheckProviderServiceImpl.class.getName()).log(Level.SEVERE, 
                 "registration for monitorvalue failed with error", error);
         super.monitorValueRegisterErrorReceived(msgHeader, error, qosProperties);
@@ -89,7 +89,7 @@ public class ParameterMonitorAdapter extends ParameterAdapter {
     }
 
     @Override
-    public void monitorValueNotifyErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties
+    public void monitorValueNotifyErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties
     ) {
         Logger.getLogger(CheckProviderServiceImpl.class.getName()).log(Level.SEVERE, 
                 "monitorvalue notification failed with error", error);

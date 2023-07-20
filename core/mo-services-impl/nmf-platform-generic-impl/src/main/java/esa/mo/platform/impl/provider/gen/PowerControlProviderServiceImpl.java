@@ -30,7 +30,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Identifier;
@@ -143,7 +143,7 @@ public class PowerControlProviderServiceImpl extends PowerControlInheritanceSkel
       }
     }
     if (!unkIndexList.isEmpty()) {
-      throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER,
+      throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER,
           unkIndexList));
     }
     return ret;
@@ -157,7 +157,7 @@ public class PowerControlProviderServiceImpl extends PowerControlInheritanceSkel
       adapter.enableDevices(devices);
     } catch (IOException ex) {
       LOGGER.log(Level.SEVERE, "adapter.enableDevices failed", ex);
-      throw new MALInteractionException(new MALStandardError(
+      throw new MALInteractionException(new MOErrorException(
           PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
   }

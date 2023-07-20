@@ -40,7 +40,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Identifier;
@@ -208,12 +208,12 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.2.9.3.1
             manager.getActivityTrackingService().publishExecutionEventSubmitAck(interaction, false, saSource); // requirement: c
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (unknown) { // requirement: 3.2.9.3.2
             manager.getActivityTrackingService().publishExecutionEventSubmitAck(interaction, false, saSource); // requirement: c
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
         }
 
         // If it was accepted then execute the action!
@@ -229,7 +229,7 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
 
         // requirement: 3.2.10.3.2
         if (!manager.existsDef(actionDetails.getDefInstId())) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
         }
 
         // requirement: 3.2.10.2.a, 3.2.10.2.b
@@ -238,7 +238,7 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
 
         // Errors
         if (!invIndexList.isEmpty()) { // requirement: 3.2.10.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         return accepted;
@@ -279,7 +279,7 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
             // Errors
             if (!unkIndexList.isEmpty()) // requirement: 3.2.11.3.1 (error: a and b)
             {
-                throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+                throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
             }
         }
 
@@ -318,10 +318,10 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
         // Errors
         // returning errors before creating the object -> requirement: 3.2.12.2.d
         if (!invIndexList.isEmpty()) { // requirement: 3.2.12.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
         if (!dupIndexList.isEmpty()) { // requirement: 3.2.12.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
         }
 
         //add the definition
@@ -368,11 +368,11 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
         // Errors
         // returning errors before creating the object -> requirement: 3.2.13.2.g
         if (!invIndexList.isEmpty()) { // requirement: 3.2.13.2.1 (error: a)
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!unkIndexList.isEmpty()) { // requirement: 3.2.13.2.2 (error: b)
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         LongList newDefIds = new LongList();
         ObjectId source = manager.storeCOMOperationActivity(interaction); // requirement: 3.2.4.e
@@ -419,7 +419,7 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
         // Errors
         // returning errors before removing the object -> requirement: 3.2.14.2.g
         if (!unkIndexList.isEmpty()) { // requirement: 3.2.14.3.1 (error: a, b)
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         for (Long tempIdentity2 : tempIdentityLst) {

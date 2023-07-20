@@ -405,12 +405,15 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
         }
 
         ElementList events = null;
-        Identifier network = null;
+        Identifier network = ConfigurationProviderSingleton.getNetwork();
         URI uri = null;
 
         if (interaction != null) {
-            //network = interaction.getMessageHeader().getNetworkZone();
             uri = interaction.getMessageHeader().getFromURI();
+        }
+
+        if (uri == null) {
+            uri = connection.getConnectionDetails().getProviderURI();
         }
 
         if (this.archiveService == null) {
@@ -420,22 +423,11 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
         ArchiveDetailsList archiveDetailsList = new ArchiveDetailsList(objectDetailsList.size());
 
         for (int i = 0; i < objectDetailsList.size(); i++) {
-            ArchiveDetails archiveDetails = new ArchiveDetails();
-            archiveDetails.setDetails(objectDetailsList.get(i));
-            archiveDetails.setInstId(new Long(0)); // no need to worry about objIds
-            archiveDetails.setTimestamp(HelperTime.getTimestamp());
-
-            if (network != null) {
-                archiveDetails.setNetwork(network);
-            } else {
-                archiveDetails.setNetwork(ConfigurationProviderSingleton.getNetwork());
-            }
-
-            if (uri != null) {
-                archiveDetails.setProvider(uri);
-            } else {
-                archiveDetails.setProvider(connection.getConnectionDetails().getProviderURI());
-            }
+            ArchiveDetails archiveDetails = new ArchiveDetails(new Long(0),
+            objectDetailsList.get(i),
+            network,
+            HelperTime.getTimestamp(),
+            uri);
 
             archiveDetailsList.add(archiveDetails);
         }

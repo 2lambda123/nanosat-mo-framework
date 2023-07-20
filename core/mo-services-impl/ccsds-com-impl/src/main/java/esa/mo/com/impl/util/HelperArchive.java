@@ -42,7 +42,7 @@ import org.ccsds.moims.mo.com.structures.ObjectId;
 import org.ccsds.moims.mo.com.structures.ObjectType;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALInvoke;
 import org.ccsds.moims.mo.mal.structures.Element;
@@ -208,12 +208,11 @@ public class HelperArchive {
      */
     public static ArchiveDetailsList generateArchiveDetailsList(final Long related,
             final ObjectId source, final Identifier network, final URI provider, final FineTime timestamp) {
-        final ArchiveDetails archiveDetails = new ArchiveDetails();
-        archiveDetails.setInstId(Long.valueOf(0));
-        archiveDetails.setDetails(new ObjectDetails(related, source));
-        archiveDetails.setNetwork(network);
-        archiveDetails.setTimestamp(timestamp);
-        archiveDetails.setProvider(provider);
+        final ArchiveDetails archiveDetails = new ArchiveDetails(Long.valueOf(0),
+            new ObjectDetails(related, source),
+            network,
+            timestamp,
+            provider);
 
         final ArchiveDetailsList archiveDetailsList = new ArchiveDetailsList();
         archiveDetailsList.add(archiveDetails);
@@ -470,7 +469,7 @@ public class HelperArchive {
 
             @Override
             public void retrieveAckErrorReceived(MALMessageHeader msgHeader,
-                    MALStandardError error, Map qosProperties) {
+                    MOErrorException error, Map qosProperties) {
                 Logger.getLogger(HelperArchive.class.getName()).log(Level.SEVERE,
                         "The Archive returned the following error: {0}", error.toString());
                 semaphore.release();
@@ -501,7 +500,7 @@ public class HelperArchive {
 
             @Override
             public void retrieveResponseErrorReceived(MALMessageHeader msgHeader,
-                    MALStandardError error, Map qosProperties) {
+                    MOErrorException error, Map qosProperties) {
                 Logger.getLogger(HelperArchive.class.getName()).log(Level.SEVERE,
                         "The Archive returned the following error: {0}", error.toString());
 

@@ -49,7 +49,7 @@ class PayloadsTestSDRDataHandler extends SoftwareDefinedRadioAdapter
   @Override
   public void streamRadioNotifyErrorReceived(
       org.ccsds.moims.mo.mal.transport.MALMessageHeader msgHeader,
-      org.ccsds.moims.mo.mal.MALStandardError error, java.util.Map qosProperties)
+      org.ccsds.moims.mo.mal.MOErrorException error, java.util.Map qosProperties)
   {
     LOGGER.log(Level.SEVERE, "MAL Error: {0}", error.toString());
   }

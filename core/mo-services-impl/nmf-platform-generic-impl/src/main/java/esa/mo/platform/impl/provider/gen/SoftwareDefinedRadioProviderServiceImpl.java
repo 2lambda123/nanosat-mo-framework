@@ -33,7 +33,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -201,11 +201,11 @@ public class SoftwareDefinedRadioProviderServiceImpl extends SoftwareDefinedRadi
       sdrInUse = false;
     } else {
       if (!adapter.isUnitAvailable()) {
-        throw new MALInteractionException(new MALStandardError(
+        throw new MALInteractionException(new MOErrorException(
             PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
       }
       if (!adapter.setConfiguration(initialConfiguration)) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER,
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER,
             null));
       }
       sdrInUse = true;
@@ -227,7 +227,7 @@ public class SoftwareDefinedRadioProviderServiceImpl extends SoftwareDefinedRadi
     }
     if (!adapter.enableSDR(enable)) {
       throw new MALInteractionException(
-          new MALStandardError(MALHelper.INTERNAL_ERROR_NUMBER, null));
+          new MOErrorException(MALHelper.INTERNAL_ERROR_NUMBER, null));
     }
   }
 
@@ -236,11 +236,11 @@ public class SoftwareDefinedRadioProviderServiceImpl extends SoftwareDefinedRadi
       final MALInteraction interaction) throws MALInteractionException, MALException
   {
     if (!adapter.isUnitAvailable()) {
-      throw new MALInteractionException(new MALStandardError(
+      throw new MALInteractionException(new MOErrorException(
           PlatformHelper.DEVICE_NOT_AVAILABLE_ERROR_NUMBER, null));
     }
     if (!adapter.setConfiguration(sdrConfiguration)) {
-      throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+      throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
     }
   }
 

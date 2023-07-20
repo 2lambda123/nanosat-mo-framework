@@ -40,7 +40,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
@@ -240,11 +240,11 @@ public class AlertProviderServiceImpl extends AlertInheritanceSkeleton implement
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.4.8.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
         
         if (!invIndexList.isEmpty()) { // requirement: 3.4.8.3.2
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         LongList output = new LongList();
@@ -298,7 +298,7 @@ public class AlertProviderServiceImpl extends AlertInheritanceSkeleton implement
             // Errors
             if (!unkIndexList.isEmpty()) // requirement: 3.4.9.3.1 (error: a and b)
             {
-                throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+                throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
             }
         }
 
@@ -336,11 +336,11 @@ public class AlertProviderServiceImpl extends AlertInheritanceSkeleton implement
         //requirement: 3.4.10.2.d -> returning errors before adding definitions assures that
         if (!invIndexList.isEmpty()) // requirement: 3.4.10.3.2
         {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
         if (!dupIndexList.isEmpty()) // requirement: 3.4.10.3.1
         {
-            throw new MALInteractionException(new MALStandardError(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.DUPLICATE_ERROR_NUMBER, dupIndexList));
         }
 
         ObjectInstancePairList outPairLst = new ObjectInstancePairList();
@@ -387,11 +387,11 @@ public class AlertProviderServiceImpl extends AlertInheritanceSkeleton implement
         // Errors
         //requirement: 3.4.11.2.g -> returning errors before adding definitions assures that
         if (!invIndexList.isEmpty()) { // requirement: 3.4.11.3.1
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         if (!unkIndexList.isEmpty()) { // requirement: 3.4.11.3.2
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         LongList outLst = new LongList();
@@ -438,7 +438,7 @@ public class AlertProviderServiceImpl extends AlertInheritanceSkeleton implement
 
         // Errors
         if (!unkIndexList.isEmpty()) { // requirement: 3.4.12.3.1
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         // requirement: 3.4.12.2.e (Inserting the errors before this line guarantees that the requirement is met)

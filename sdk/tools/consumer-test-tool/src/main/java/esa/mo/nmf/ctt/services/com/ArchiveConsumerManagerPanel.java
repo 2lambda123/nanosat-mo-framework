@@ -61,7 +61,7 @@ import org.ccsds.moims.mo.com.structures.ObjectType;
 import org.ccsds.moims.mo.mal.MALElementsRegistry;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.ElementList;
@@ -361,7 +361,7 @@ public class ArchiveConsumerManagerPanel extends javax.swing.JPanel {
         }
 
         @Override
-        public synchronized void queryAckErrorReceived(MALMessageHeader msgHeader, MALStandardError error, Map qosProperties) {
+        public synchronized void queryAckErrorReceived(MALMessageHeader msgHeader, MOErrorException error, Map qosProperties) {
             Logger.getLogger(ArchiveConsumerManagerPanel.class.getName()).log(Level.SEVERE, "queryAckErrorReceived", error);
         }
 

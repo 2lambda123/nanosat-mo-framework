@@ -41,7 +41,7 @@ import org.ccsds.moims.mo.softwaremanagement.packagemanagement.provider.Uninstal
 import org.ccsds.moims.mo.softwaremanagement.packagemanagement.provider.UpgradeInteraction;
 import esa.mo.sm.impl.util.PMBackend;
 import java.io.IOException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.StringList;
@@ -188,7 +188,7 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
 
         // Errors
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         return outList;
@@ -232,11 +232,11 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
 
         // Errors
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         if (!invIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         for (Identifier packageName : names) {
@@ -289,11 +289,11 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
 
         // Errors
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         if (!invIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         for (Identifier packageName : names) {
@@ -345,11 +345,11 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
 
         // Errors
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         if (!invIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         for (Identifier packageName : names) {
@@ -398,11 +398,11 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
 
         // Errors
         if (!unkIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
+            throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, unkIndexList));
         }
 
         if (!invIndexList.isEmpty()) {
-            throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
+            throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, invIndexList));
         }
 
         final BooleanList integrities = new BooleanList();

@@ -56,7 +56,7 @@ import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.MALStandardError;
+import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.FileList;
@@ -226,7 +226,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
       Identifier domainPart = inputDomain.get(i);
 
       if (domainPart.toString().equals("*") && i != (inputDomain.size() - 1)) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
       }
     }
 
@@ -411,12 +411,12 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
 
       // Check if there are comServices...
       if (comServices == null) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
       }
 
       // Check if the archive is available...
       if (comServices.getArchiveService() == null) {
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
       }
 
       // Store in the Archive the ServiceProvider COM object and get an object instance identifier
@@ -434,7 +434,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
       if (!returnedServProvObjIds.isEmpty()) {
         servProvObjId = returnedServProvObjIds.get(0);
       } else {  // Nothing was returned...
-        throw new MALInteractionException(new MALStandardError(COMHelper.INVALID_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(COMHelper.INVALID_ERROR_NUMBER, null));
       }
 
       // related contains the objId of the ServiceProvider object
@@ -472,7 +472,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
       PublishDetails details = this.providersAvailable.get(providerObjectKey);
 
       if (details == null) { // The requested provider does not exist
-        throw new MALInteractionException(new MALStandardError(MALHelper.UNKNOWN_ERROR_NUMBER, null));
+        throw new MALInteractionException(new MOErrorException(MALHelper.UNKNOWN_ERROR_NUMBER, null));
       }
 
       this.providersAvailable.remove(providerObjectKey); // Remove the provider...
