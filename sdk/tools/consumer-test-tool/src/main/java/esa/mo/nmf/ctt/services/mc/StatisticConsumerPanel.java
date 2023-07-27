@@ -40,10 +40,10 @@ import org.ccsds.moims.mo.com.structures.ObjectKey;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.helpertools.helpers.HelperAttributes;
-import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.LongList;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
 import org.ccsds.moims.mo.mal.structures.UpdateHeaderList;
@@ -460,10 +460,10 @@ public class StatisticConsumerPanel extends javax.swing.JPanel {
 
             final long iDiff = System.currentTimeMillis() - msgHeader.getTimestamp().getValue();
 
-            final AttributeList keyValues = updateHeader.getKeyValues();
-            final String statFunctionName = HelperAttributes.attribute2string(keyValues.get(0));
-            final int statLinkObjId = (int) HelperAttributes.attribute2JavaType(keyValues.get(1));
-            final int paramObjId = (int) HelperAttributes.attribute2JavaType(keyValues.get(2));
+            final NullableAttributeList keyValues = updateHeader.getKeyValues();
+            final String statFunctionName = HelperAttributes.attribute2string(keyValues.get(0).getValue());
+            final int statLinkObjId = (int) HelperAttributes.attribute2JavaType(keyValues.get(1).getValue());
+            final int paramObjId = (int) HelperAttributes.attribute2JavaType(keyValues.get(2).getValue());
             /*
             final String statFunctionName = updateHeader.getKey().getFirstSubKey().getValue();
             final int statLinkObjId = updateHeader.getKey().getSecondSubKey().intValue();

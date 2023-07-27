@@ -33,11 +33,11 @@ import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.helpertools.helpers.HelperAttributes;
-import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
 import org.ccsds.moims.mo.softwaremanagement.appslauncher.AppsLauncherServiceInfo;
@@ -346,8 +346,8 @@ public class AppsLauncherConsumerPanel extends javax.swing.JPanel
         org.ccsds.moims.mo.mal.structures.UpdateHeader updateHeader,
         String out, java.util.Map qosProperties)
     {
-        final AttributeList keyValues = updateHeader.getKeyValues();
-        final long id = (long) HelperAttributes.attribute2JavaType(keyValues.get(1));
+        final NullableAttributeList keyValues = updateHeader.getKeyValues();
+        final long id = (long) HelperAttributes.attribute2JavaType(keyValues.get(1).getValue());
         StringBuffer stringBuf = outputBuffers.get(id);
         stringBuf.append(out);
         appVerboseTextArea.append(out);

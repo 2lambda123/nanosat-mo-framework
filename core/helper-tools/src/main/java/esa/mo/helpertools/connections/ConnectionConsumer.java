@@ -289,7 +289,7 @@ public class ConnectionConsumer {
      * @return The subscription object
      */
     public static Subscription subscriptionWildcard(final Identifier subscriptionId) {
-        return new Subscription(subscriptionId, null, null);
+        return new Subscription(subscriptionId, null, null, null);
     }
 
     /**
@@ -305,7 +305,7 @@ public class ConnectionConsumer {
      */
     public static Subscription subscriptionKeys(final Identifier subscriptionId,
             SubscriptionFilterList filters) {
-        return new Subscription(subscriptionId, null, filters);
+        return new Subscription(subscriptionId, null, null, filters);
     }
 
 }

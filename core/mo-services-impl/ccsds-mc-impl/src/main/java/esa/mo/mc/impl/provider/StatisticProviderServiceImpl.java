@@ -251,7 +251,7 @@ public class StatisticProviderServiceImpl extends StatisticInheritanceSkeleton {
 
             URI uri = connection.getConnectionDetails().getProviderURI();
             UpdateHeader updateHeader = new UpdateHeader(new Identifier(uri.getValue()),
-                    connection.getConnectionDetails().getDomain(), keys);
+                    connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
 
             // requirement: 3.6.9.2.h
             // requirement: 3.6.9.2.f and 3.6.9.2.g

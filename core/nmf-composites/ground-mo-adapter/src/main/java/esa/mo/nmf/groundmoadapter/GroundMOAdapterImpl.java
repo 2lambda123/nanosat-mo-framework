@@ -49,12 +49,12 @@ import org.ccsds.moims.mo.common.directory.structures.ProviderSummary;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
-import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Blob;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.structures.Time;
 import org.ccsds.moims.mo.mal.structures.UShort;
@@ -217,8 +217,8 @@ public class GroundMOAdapterImpl extends NMFConsumer implements SimpleCommanding
           final Map qosp)
       {
 
-            AttributeList keyValues = updateHeader.getKeyValues();
-            String parameterName = HelperAttributes.attribute2string(keyValues.get(0));
+            NullableAttributeList keyValues = updateHeader.getKeyValues();
+            String parameterName = HelperAttributes.attribute2string(keyValues.get(0).getValue());
             Attribute parameterValue = lParameterValue.getRawValue();
             Serializable object;
 
@@ -286,9 +286,9 @@ public class GroundMOAdapterImpl extends NMFConsumer implements SimpleCommanding
             if (listener instanceof CompleteAggregationReceivedListener) {
               //Time timestamp = lUpdateHeaderList.get(i).getTimestamp();
               Time timestamp = null;
-              AttributeList subkeys = updateHeader.getKeyValues();
+              NullableAttributeList subkeys = updateHeader.getKeyValues();
               // String aggregationName = lUpdateHeaderList.get(i).getKey().getFirstSubKey().toString();
-              String aggregationName = HelperAttributes.attribute2string(subkeys.get(0));
+              String aggregationName = HelperAttributes.attribute2string(subkeys.get(0).getValue());
 
               AggregationInstance aggregationInstance = new AggregationInstance(
                   new Identifier(aggregationName), aggregationValue, source, timestamp);

@@ -31,7 +31,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.ccsds.moims.mo.com.COMHelper;
 import org.ccsds.moims.mo.mal.MALContextFactory;
-import org.ccsds.moims.mo.mal.MALElementsRegistry;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
@@ -61,12 +60,8 @@ import org.ccsds.moims.mo.platform.autonomousadcs.body.GetStatusResponse;
 import org.ccsds.moims.mo.platform.autonomousadcs.provider.AutonomousADCSInheritanceSkeleton;
 import org.ccsds.moims.mo.platform.autonomousadcs.provider.MonitorAttitudePublisher;
 import org.ccsds.moims.mo.platform.autonomousadcs.structures.ActuatorsTelemetry;
-import org.ccsds.moims.mo.platform.autonomousadcs.structures.ActuatorsTelemetryList;
 import org.ccsds.moims.mo.platform.autonomousadcs.structures.AttitudeMode;
-import org.ccsds.moims.mo.platform.autonomousadcs.structures.AttitudeModeBDotList;
-import org.ccsds.moims.mo.platform.autonomousadcs.structures.AttitudeModeList;
 import org.ccsds.moims.mo.platform.autonomousadcs.structures.AttitudeTelemetry;
-import org.ccsds.moims.mo.platform.autonomousadcs.structures.AttitudeTelemetryList;
 import org.ccsds.moims.mo.platform.autonomousadcs.structures.ReactionWheelIdentifier;
 import org.ccsds.moims.mo.platform.autonomousadcs.structures.ReactionWheelParameters;
 
@@ -187,31 +182,9 @@ public class AutonomousADCSProviderServiceImpl extends AutonomousADCSInheritance
 
     try {
       final AttitudeTelemetry attitudeTelemetry = adapter.getAttitudeTelemetry();
-      /*
-      final AttitudeTelemetryList attitudeTelemetryList =
-          (AttitudeTelemetryList) MALElementsRegistry.elementToElementList(attitudeTelemetry);
-      attitudeTelemetryList.add(attitudeTelemetry);
-      */
       final ActuatorsTelemetry actuatorsTelemetry = adapter.getActuatorsTelemetry();
-      /*
-      final ActuatorsTelemetryList actuatorsTelemetryList =
-          (ActuatorsTelemetryList) MALElementsRegistry.elementToElementList(actuatorsTelemetry);
-      actuatorsTelemetryList.add(actuatorsTelemetry);
-      */
       final AttitudeMode activeAttitudeMode = adapter.getActiveAttitudeMode();
 
-      /*
-      AttitudeModeList attitudeModeList;
-      if (activeAttitudeMode == null) {
-        // Pick a dummy concrete type type just to fill it with a null value
-        attitudeModeList = new AttitudeModeList();
-      } else {
-        attitudeModeList = (AttitudeModeList) MALElementsRegistry.elementToElementList(
-            activeAttitudeMode);
-      }
-      attitudeModeList.add(activeAttitudeMode);
-      */
-      //final DurationList durationList = new DurationList();
       Duration duration = getAttitudeControlRemainingDuration();
 
       AttributeList keys = new AttributeList(); 
@@ -219,7 +192,7 @@ public class AutonomousADCSProviderServiceImpl extends AutonomousADCSInheritance
       //final UpdateHeaderList hdrlst = new UpdateHeaderList();
       URI source = connection.getConnectionDetails().getProviderURI();
       UpdateHeader updateHeader = new UpdateHeader(new Identifier(source.getValue()), 
-              connection.getConnectionDetails().getDomain(), keys);
+              connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
 
       publisher.publish(updateHeader, attitudeTelemetry, 
               actuatorsTelemetry, duration, activeAttitudeMode);

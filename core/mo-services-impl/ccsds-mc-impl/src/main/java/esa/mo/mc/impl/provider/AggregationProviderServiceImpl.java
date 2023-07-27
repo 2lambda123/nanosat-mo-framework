@@ -250,7 +250,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
 
             URI providerURI = connection.getConnectionDetails().getProviderURI();
             UpdateHeader updateHeader = new UpdateHeader(new Identifier(providerURI.getValue()), 
-                    connection.getConnectionDetails().getDomain(), keys);
+                    connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
             
             //requirement 3.7.7.2.h
             publisher.publish(updateHeader, source, aVal);

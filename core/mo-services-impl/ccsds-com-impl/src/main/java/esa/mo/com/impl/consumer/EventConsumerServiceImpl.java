@@ -45,9 +45,11 @@ import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.structures.SubscriptionList;
 import org.ccsds.moims.mo.mal.structures.UShort;
+import org.ccsds.moims.mo.mal.structures.Union;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
 
@@ -142,11 +144,11 @@ public class EventConsumerServiceImpl extends ConsumerServiceImpl {
                         Long entityKey4 = lUpdateHeaderList.get(i).getKey().getFourthSubKey(); // ObjType of the source
                         */
 
-                        AttributeList subkeys = lUpdateHeader.getKeyValues();
-                        Identifier entityKey1 = (Identifier) subkeys.get(0);
-                        Long entityKey2 = (Long) subkeys.get(1);
-                        Long entityKey3 = (Long) subkeys.get(2);
-                        Long entityKey4 = (Long) subkeys.get(3); // ObjType of the source
+                        NullableAttributeList subkeys = lUpdateHeader.getKeyValues();
+                        Identifier entityKey1 = (Identifier) subkeys.get(0).getValue();
+                        Long entityKey2 = ((Union) subkeys.get(1).getValue()).getLongValue();
+                        Long entityKey3 = ((Union) subkeys.get(2).getValue()).getLongValue();
+                        Long entityKey4 = ((Union) subkeys.get(3).getValue()).getLongValue(); // ObjType of the source
                         /*
                         Long entityKey2 = (Long) HelperAttributes.attribute2JavaType(subkeys.get(1).getValue());
                         Long entityKey3 = (Long) HelperAttributes.attribute2JavaType(subkeys.get(2).getValue());

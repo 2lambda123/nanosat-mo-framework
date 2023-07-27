@@ -175,7 +175,7 @@ public class SoftwareDefinedRadioProviderServiceImpl extends SoftwareDefinedRadi
       AttributeList keys = new AttributeList(); 
       URI source = connection.getConnectionDetails().getProviderURI();
       UpdateHeader updateHeader = new UpdateHeader(new Identifier(source.getValue()), 
-              connection.getConnectionDetails().getDomain(), keys);
+              connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
 
       publisher.publish(updateHeader, iqComponents);
     } catch (IllegalArgumentException ex) {

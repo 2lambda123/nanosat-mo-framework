@@ -149,8 +149,9 @@ public abstract class GENDecoder implements MALDecoder {
             decodedDomain.add(new Identifier(sourceBuffer.getString()));
         }
 
-        return new ObjectRef(decodedDomain, new Identifier(sourceBuffer.getString()),
-                new Identifier(sourceBuffer.getString()), new Identifier(sourceBuffer.getString()),
+        return new ObjectRef(decodedDomain,
+                Long.valueOf(sourceBuffer.getSignedLong()),
+                new Identifier(sourceBuffer.getString()),
                 new UInteger(sourceBuffer.getUnsignedLong32()));
     }
 

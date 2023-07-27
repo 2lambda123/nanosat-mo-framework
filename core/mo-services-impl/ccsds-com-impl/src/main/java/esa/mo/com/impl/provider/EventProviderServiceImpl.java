@@ -55,6 +55,8 @@ import org.ccsds.moims.mo.mal.structures.ElementList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
+import org.ccsds.moims.mo.mal.structures.NullableAttribute;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.QoSLevel;
 import org.ccsds.moims.mo.mal.structures.SessionType;
 import org.ccsds.moims.mo.mal.structures.UInteger;
@@ -293,11 +295,11 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
             subkeys.add(new NamedValue(new Identifier("key4"), new Union(subKey)));
              */
 
-            final AttributeList keyValues = new AttributeList();
-            keyValues.add(new Identifier(objType.getNumber().toString()));
-            keyValues.add(new Union(secondEntityKey));
-            keyValues.add(new Union(objId));
-            keyValues.add(new Union(subKey));
+            final NullableAttributeList keyValues = new NullableAttributeList();
+            keyValues.add(new NullableAttribute(new Identifier(objType.getNumber().toString())));
+            keyValues.add(new NullableAttribute(new Union(secondEntityKey)));
+            keyValues.add(new NullableAttribute(new Union(objId)));
+            keyValues.add(new NullableAttribute(new Union(subKey)));
 
             UpdateHeader updateHeader = new UpdateHeader(new Identifier(sourceURI.getValue()),
                     connection.getConnectionDetails().getDomain(), keyValues);
@@ -371,7 +373,7 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
                 final Long related = (relateds == null) ? null : relateds.get(i);
 
                 UpdateHeader updateHeader = new UpdateHeader(new Identifier(sourceURI.getValue()),
-                        connection.getConnectionDetails().getDomain(), keys);
+                        connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
                 ObjectDetails objectDetails = new ObjectDetails(related, sources.get(i)); // requirement: 3.3.4.2.5
 
                 if (eventBody == null) {

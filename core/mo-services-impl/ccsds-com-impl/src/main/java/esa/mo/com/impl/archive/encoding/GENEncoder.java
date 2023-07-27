@@ -501,8 +501,7 @@ public abstract class GENEncoder implements MALListEncoder {
                 outputStream.addString(value.getDomain().get(i).getValue());
             }
 
-            outputStream.addString(value.getArea().getValue());
-            outputStream.addString(value.getType().getValue());
+            outputStream.addSignedLong(value.getabsoluteSFP());
             outputStream.addString(value.getKey().getValue());
             outputStream.addUnsignedLong32(value.getObjectVersion().getValue());
         } catch (IOException ex) {

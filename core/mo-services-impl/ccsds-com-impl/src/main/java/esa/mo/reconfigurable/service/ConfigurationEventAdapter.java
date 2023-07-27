@@ -40,12 +40,13 @@ import org.ccsds.moims.mo.common.configuration.structures.ConfigurationObjectDet
 import org.ccsds.moims.mo.common.configuration.structures.ConfigurationObjectDetailsList;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.URI;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
@@ -76,8 +77,8 @@ public class ConfigurationEventAdapter extends EventAdapter implements Serializa
             UpdateHeader updateHeader, ObjectDetails objectDetails,
             Element object, Map qosProperties) {
         // Notification received from the Configuration serviceImpl...
-        AttributeList subkeys = updateHeader.getKeyValues();
-        Identifier eventObjNumber = (Identifier) subkeys.get(0);
+        NullableAttributeList subkeys = updateHeader.getKeyValues();
+        Identifier eventObjNumber = (Identifier) subkeys.get(0).getValue();
 
         // Check if it is a "Configuration switch Request" or a "Current Configuration Store"
         if (!eventObjNumber.toString().equals(ConfigurationServiceInfo.CONFIGURATIONSWITCH_OBJECT_NUMBER.toString())
@@ -116,7 +117,8 @@ public class ConfigurationEventAdapter extends EventAdapter implements Serializa
         }
 
         // Long entityKey3 = (Long) HelperAttributes.attribute2JavaType(subkeys.get(2).getValue());
-        Long entityKey3 = (Long) subkeys.get(2);
+        Attribute nullAtt = subkeys.get(2).getValue();
+        Long entityKey3 = (Long) Attribute.javaType2Attribute(nullAtt);
 
         // -----------------------------------------------------------
         // Check if it is a "Current Configuration Store"

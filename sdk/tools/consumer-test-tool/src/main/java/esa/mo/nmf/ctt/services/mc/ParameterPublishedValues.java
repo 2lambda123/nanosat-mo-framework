@@ -33,6 +33,7 @@ import org.ccsds.moims.mo.mal.helpertools.connections.ConnectionConsumer;
 import org.ccsds.moims.mo.mal.helpertools.helpers.HelperAttributes;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.structures.UInteger;
 import org.ccsds.moims.mo.mal.structures.UOctet;
@@ -103,9 +104,9 @@ public class ParameterPublishedValues extends javax.swing.JPanel {
             Logger.getLogger(ParameterPublishedValues.class.getName()).log(
                     Level.FINE, "Received update parameter value!");
 
-            final AttributeList keyValues = updateHeader.getKeyValues();
-            final String name = HelperAttributes.attribute2string(keyValues.get(0));
-            final Long second = (Long) HelperAttributes.attribute2JavaType(keyValues.get(1));
+            final NullableAttributeList keyValues = updateHeader.getKeyValues();
+            final String name = HelperAttributes.attribute2string(keyValues.get(0).getValue());
+            final Long second = (Long) HelperAttributes.attribute2JavaType(keyValues.get(1).getValue());
             //final String name = updateHeader.getKey().getFirstSubKey().getValue();
 
             try {

@@ -226,7 +226,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
       final UpdateHeaderList hdrlst = new UpdateHeaderList();
       URI source = connection.getConnectionDetails().getProviderURI();
       UpdateHeader updateHeader = new UpdateHeader(new Identifier(source.getValue()), 
-              connection.getConnectionDetails().getDomain(), keys);
+              connection.getConnectionDetails().getDomain(), keys.getAsNullableAttributeList());
 
       BooleanList bools = new BooleanList();
       bools.add(isInside);

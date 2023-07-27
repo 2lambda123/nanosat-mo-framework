@@ -29,6 +29,7 @@ import org.ccsds.moims.mo.com.structures.ObjectKey;
 import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
+import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
 import org.ccsds.moims.mo.mal.transport.MALMessageHeader;
 import org.ccsds.moims.mo.mc.parameter.ParameterServiceInfo;
@@ -70,14 +71,14 @@ public class ParameterMonitorAdapter extends ParameterAdapter {
     @Override
     public void monitorValueNotifyReceived(MALMessageHeader msgHeader, Identifier _Identifier0, 
             UpdateHeader updateHeader, ObjectId paramValueObjectId, ParameterValue parameterValue, Map qosProperties) {
-        AttributeList keyValues = updateHeader.getKeyValues();
+        NullableAttributeList keyValues = updateHeader.getKeyValues();
 
         //final Long paramIdentityId = _UpdateHeaderList1.get(0).getKey().getSecondSubKey();
-        final Long paramIdentityId = (Long) HelperAttributes.attribute2JavaType(keyValues.get(1));
+        final Long paramIdentityId = (Long) HelperAttributes.attribute2JavaType(keyValues.get(1).getValue());
         Logger.getLogger(CheckProviderServiceImpl.class.getName()).log(Level.INFO, 
                 "monitorvalue-update for parameter with identity id: {0} received", new Object[]{paramIdentityId});
         final ParameterValue newParamValue = parameterValue;
-        final Long key4 = (Long) HelperAttributes.attribute2JavaType(keyValues.get(3));
+        final Long key4 = (Long) HelperAttributes.attribute2JavaType(keyValues.get(3).getValue());
         final ObjectId paramValObjId = new ObjectId(ParameterServiceInfo.PARAMETERVALUEINSTANCE_OBJECT_TYPE, 
                 new ObjectKey(null, key4));
 
