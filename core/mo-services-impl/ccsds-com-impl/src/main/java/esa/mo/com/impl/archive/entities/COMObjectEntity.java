@@ -33,6 +33,8 @@ import javax.persistence.*;
 import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALElementsRegistry;
 import org.ccsds.moims.mo.mal.MALException;
+import org.ccsds.moims.mo.mal.MALHelper;
+import org.ccsds.moims.mo.mal.TypeId;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.FineTime;
 
@@ -221,8 +223,20 @@ public class COMObjectEntity implements Serializable {
         if (this.obj != null) {
             try {
                 final BinaryDecoder binDec = new BinaryDecoder(this.obj);
-                final Long sfp = binDec.decodeLong();
+                Long sfp = binDec.decodeLong();
                 final MALElementsRegistry eleFact = MALContextFactory.getElementsRegistry();
+                TypeId typeId = new TypeId(sfp);
+
+                // If it a MAL type from the old MAL versions, then convert it to the latest MAL version!
+                if (typeId.isOldMAL()) {
+                    TypeId newTypeId = new TypeId(typeId.getAreaNumber(),
+                            MALHelper._MAL_AREA_VERSION,
+                            typeId.getServiceNumber(),
+                            typeId.getShortFormPartNumber());
+
+                    sfp = newTypeId.getTypeId();
+                }
+
                 elem = binDec.decodeNullableElement((Element) eleFact.createElement(sfp));
             } catch (MALException ex) {
                 Logger.getLogger(COMObjectEntity.class.getName()).log(Level.SEVERE,
