@@ -35,6 +35,7 @@ import org.ccsds.moims.mo.mal.broker.MALBroker;
 import org.ccsds.moims.mo.mal.broker.MALBrokerBinding;
 import org.ccsds.moims.mo.mal.broker.MALBrokerManager;
 import org.ccsds.moims.mo.mal.structures.Blob;
+import org.ccsds.moims.mo.mal.structures.NamedValueList;
 import org.ccsds.moims.mo.mal.structures.QoSLevel;
 import org.ccsds.moims.mo.mal.structures.UInteger;
 
@@ -67,7 +68,8 @@ public class ConnectionSharedBroker {
                 new Blob("".getBytes()),
                 new QoSLevel[]{QoSLevel.ASSURED},
                 new UInteger(1),
-                new Hashtable());
+                new Hashtable(),
+                new NamedValueList());
 
         Logger.getLogger(ConnectionSharedBroker.class.getName()).log(Level.INFO, "Shared Broker URI: {0}", brokerBinding.getURI());
 

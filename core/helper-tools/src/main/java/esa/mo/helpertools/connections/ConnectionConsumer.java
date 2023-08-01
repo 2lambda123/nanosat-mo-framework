@@ -159,7 +159,8 @@ public class ConnectionConsumer {
                 configuration.getSessionName(),
                 QoSLevel.ASSURED,
                 props,
-                new UInteger(0));
+                new UInteger(0),
+                new NamedValueList());
 
         return tmConsumer;
     }
@@ -207,7 +208,8 @@ public class ConnectionConsumer {
                 configuration.getSessionName(),
                 qosLevel,
                 props,
-                priorityLevels);
+                priorityLevels,
+                new NamedValueList());
 
         return tmConsumer;
     }
@@ -297,10 +299,7 @@ public class ConnectionConsumer {
      * provided keys
      *
      * @param subscriptionId The subscription Identifier
-     * @param key1 First key
-     * @param key2 Second key
-     * @param key3 Third key
-     * @param key4 Fourth key
+     * @param filters The subscription filters.
      * @return The subscription object
      */
     public static Subscription subscriptionKeys(final Identifier subscriptionId,

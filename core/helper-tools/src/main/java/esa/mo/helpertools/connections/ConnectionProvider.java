@@ -37,6 +37,7 @@ import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALProviderManager;
 import org.ccsds.moims.mo.mal.structures.Blob;
 import org.ccsds.moims.mo.mal.structures.IntegerList;
+import org.ccsds.moims.mo.mal.structures.NamedValueList;
 import org.ccsds.moims.mo.mal.structures.QoSLevel;
 import org.ccsds.moims.mo.mal.structures.UInteger;
 import org.ccsds.moims.mo.mal.structures.URI;
@@ -154,7 +155,8 @@ public class ConnectionProvider {
                 new UInteger(1),
                 props,
                 isPublisher,
-                sharedBrokerURI);
+                sharedBrokerURI,
+                new NamedValueList());
 
         IntegerList serviceKey = new IntegerList();
         serviceKey.add(malService.getAreaNumber().getValue()); // Area
@@ -201,7 +203,8 @@ public class ConnectionProvider {
                     new UInteger(1),
                     props,
                     isPublisher,
-                    sharedBrokerURI);
+                    sharedBrokerURI,
+                    new NamedValueList());
 
             secondaryConnectionDetails.setProviderURI(serviceProvider2.getURI());
             secondaryConnectionDetails.setBrokerURI(serviceProvider2.getBrokerURI());
