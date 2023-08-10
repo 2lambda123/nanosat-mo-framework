@@ -58,6 +58,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.Identifier;
@@ -193,7 +194,7 @@ public class AppsLauncherProviderServiceImpl extends AppsLauncherInheritanceSkel
           IdentifierList keys = new IdentifierList();
           keys.add(new Identifier("app.name"));
           keys.add(new Identifier("app.objId"));
-          publisher.register(keys, new PublishInteractionListener());
+          publisher.register(keys, new AttributeTypeList(), new PublishInteractionListener());
           isRegistered = true;
         }
       }

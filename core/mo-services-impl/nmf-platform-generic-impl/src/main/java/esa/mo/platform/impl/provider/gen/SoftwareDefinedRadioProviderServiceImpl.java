@@ -38,6 +38,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
@@ -157,7 +158,7 @@ public class SoftwareDefinedRadioProviderServiceImpl extends SoftwareDefinedRadi
       synchronized (lock) {
         if (!isRegistered) {
           IdentifierList keys = new IdentifierList();
-          publisher.register(keys, new PublishInteractionListener());
+          publisher.register(keys, new AttributeTypeList(), new PublishInteractionListener());
           isRegistered = true;
         }
         iqComponents = adapter.getIQComponents();

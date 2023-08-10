@@ -35,6 +35,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
@@ -152,7 +153,7 @@ public class HeartbeatProviderServiceImpl extends HeartbeatInheritanceSkeleton
     try {
       synchronized (lock) {
         if (!isRegistered) {
-          publisher.register(new IdentifierList(), new PublishInteractionListener());
+          publisher.register(new IdentifierList(), new AttributeTypeList(), new PublishInteractionListener());
           isRegistered = true;
         }
       }

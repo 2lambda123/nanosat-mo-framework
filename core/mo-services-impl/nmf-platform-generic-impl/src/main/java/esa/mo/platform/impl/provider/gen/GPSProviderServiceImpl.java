@@ -52,6 +52,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Element;
@@ -204,7 +205,7 @@ public class GPSProviderServiceImpl extends GPSInheritanceSkeleton
           keys.add(new Identifier("name"));
           keys.add(new Identifier("objId"));
           keys.add(new Identifier("pValObjId"));
-          publisher.register(keys, new PublishInteractionListener());
+          publisher.register(keys, new AttributeTypeList(), new PublishInteractionListener());
           isRegistered = true;
         }
       }
