@@ -1037,7 +1037,9 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
 
             for (int i = 0; i < outIds.size(); i++) {
                 relatedIds.add(outIds.get(i).getObjDefInstanceId());
-                sourceIds.add(parameters.get(i).getSource());
+                ObjectId sourceId = parameters.get(i).getSource();
+                sourceId = (sourceId != null) ? sourceId : new ObjectId();
+                sourceIds.add(sourceId);
                 final FineTime timestamp = (parameters.get(i).getTimestamp() != null) ? 
                         HelperTime.timeToFineTime(parameters.get(i).getTimestamp()) : 
                         defaultTimestamp;

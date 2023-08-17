@@ -261,7 +261,7 @@ public class ArchiveManager {
         Long sourceObjId = null;
 
         if (source != null) {
-            if (source.getKey().getDomain() != null) {
+            if (source.getKey() != null && source.getKey().getDomain() != null) {
                 sourceDomainId = this.fastDomain.getDomainId(source.getKey().getDomain());
             }
 
@@ -269,7 +269,9 @@ public class ArchiveManager {
                 sourceObjectTypeId = this.fastObjectType.getObjectTypeId(source.getType());
             }
 
-            sourceObjId = source.getKey().getInstId();
+            if (source.getKey() != null) {
+                sourceObjId = source.getKey().getInstId();
+            }
         }
 
         return new SourceLinkContainer(sourceObjectTypeId, sourceDomainId, sourceObjId);
