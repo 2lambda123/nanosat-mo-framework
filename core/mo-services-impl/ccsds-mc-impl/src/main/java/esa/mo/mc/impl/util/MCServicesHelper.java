@@ -145,19 +145,6 @@ public class MCServicesHelper {
         public ObjectType sourceObjectType = new ObjectType();
     }
 
-    public static void generateObjectTypeFromSubKey(ObjectType objectType, Long secondSubKey) {
-        long subkey = secondSubKey;
-
-        // Get the object number from the bottom 3 bytes.
-        objectType.setNumber(new UShort((int) (subkey & 0xFFFFFF)));
-        // Version comes from the next byte.
-        objectType.setVersion(new UOctet((short) ((subkey >> 24) & 0xFF)));
-        // Service comes from the next 2 bytes.
-        objectType.setService(new UShort((int) ((subkey >> 32) & 0xFFFF)));
-        // Arean comes from the next 2 bytes.
-        objectType.setArea(new UShort((int) ((subkey >> 48) & 0xFFFF)));
-    }
-
     @Deprecated
     public static Attribute getAttribute(String value, int type) {
 //        LoggingBase.logMessage("Getting Attribute of type " + type + " with value " + value);

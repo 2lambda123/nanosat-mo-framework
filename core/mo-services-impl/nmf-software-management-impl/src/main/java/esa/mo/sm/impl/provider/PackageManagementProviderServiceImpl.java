@@ -134,7 +134,7 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
     public FindPackageResponse findPackage(IdentifierList names, MALInteraction interaction)
             throws MALInteractionException, MALException {
         UIntegerList unkIndexList = new UIntegerList();
-        FindPackageResponse outList = new FindPackageResponse();
+        FindPackageResponse outList;
 
         if (null == names) { // Is the input null?
             throw new IllegalArgumentException("names argument and category argument must not be null");
@@ -176,14 +176,12 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
                 }
             }
 
-            outList.setBodyElement0(packages); // ObjIds
-            outList.setBodyElement1(installed); // Installed?
+            outList = new FindPackageResponse(packages, installed);
         } catch (IOException ex) {
             Logger.getLogger(PackageManagementProviderServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
 
             // Just return empty lists
-            outList.setBodyElement0(new IdentifierList());
-            outList.setBodyElement1(new BooleanList());
+            outList = new FindPackageResponse(new IdentifierList(), new BooleanList());
         }
 
         // Errors
@@ -415,11 +413,7 @@ public class PackageManagementProviderServiceImpl extends PackageManagementInher
             publicKeys.add(publicKey);
         }
 
-        CheckPackageIntegrityResponse out = new CheckPackageIntegrityResponse();
-        out.setBodyElement0(integrities);
-        out.setBodyElement1(publicKeys);
-
-        return out;
+        return new CheckPackageIntegrityResponse(integrities, publicKeys);
     }
 
     private static int packageExistsInIndex(String name, StringList packagesList) {

@@ -321,11 +321,13 @@ public class ActivityTrackingProviderServiceImpl {
         opActivityList.add(new OperationActivity(interaction.getMessageHeader().getInteractionType()));
 
         // requirement: 3.5.2.3
-        final ArchiveDetailsList archiveDetails = HelperArchive.generateArchiveDetailsList(null, source, interaction);
         final Long objId = interaction.getMessageHeader().getTransactionId();
-        archiveDetails.get(0).setInstId(objId); // requirement: 3.5.2.4
+        final ArchiveDetailsList archiveDetails = HelperArchive.generateArchiveDetailsList(null,
+                source, ConfigurationProviderSingleton.getNetwork(),
+                interaction.getMessageHeader().getFromURI(), objId);
+        //archiveDetails.get(0).setInstId(objId); // requirement: 3.5.2.4
         //archiveDetails.get(0).setNetwork(interaction.getMessageHeader().getNetworkZone());  // RID raised to create this requirement!
-        archiveDetails.get(0).setProvider(interaction.getMessageHeader().getFromURI());     // RID raised to create this requirement!
+        //archiveDetails.get(0).setProvider(interaction.getMessageHeader().getFromURI());     // RID raised to create this requirement!
 
         executor.execute(new Runnable() {
             @Override

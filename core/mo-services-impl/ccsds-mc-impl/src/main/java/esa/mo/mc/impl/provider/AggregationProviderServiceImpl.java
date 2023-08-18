@@ -1333,10 +1333,7 @@ public class AggregationProviderServiceImpl extends AggregationInheritanceSkelet
         list.get(1).setObjType(AggregationServiceInfo.AGGREGATIONDEFINITION_OBJECT_TYPE);
 
         // Needs the Common API here!
-        ConfigurationObjectDetails set = new ConfigurationObjectDetails();
-        set.setConfigObjects(list);
-
-        return set;
+        return new ConfigurationObjectDetails(list);
     }
 
     @Override

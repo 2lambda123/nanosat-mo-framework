@@ -234,15 +234,14 @@ public class HelperArchive {
      */
     public static ArchiveDetailsList generateArchiveDetailsList(final Long related,
             final ObjectId source, final Identifier network, final URI provider, final Long objId) {
-        final ArchiveDetailsList archiveDetailsList = HelperArchive.generateArchiveDetailsList(
-                related,
-                source,
-                network,
-                provider
-        );
+        ArchiveDetails archiveDetails = new ArchiveDetails(objId,
+            new ObjectDetails(related, source),
+            network,
+            FineTime.now(),
+            provider);
 
-        archiveDetailsList.get(0).setInstId(objId);
-
+        final ArchiveDetailsList archiveDetailsList = new ArchiveDetailsList();
+        archiveDetailsList.add(archiveDetails);
         return archiveDetailsList;
     }
 

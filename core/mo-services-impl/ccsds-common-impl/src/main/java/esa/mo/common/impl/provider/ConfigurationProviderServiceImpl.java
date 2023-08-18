@@ -213,15 +213,19 @@ public class ConfigurationProviderServiceImpl extends ConfigurationInheritanceSk
         try {  // Consumer of Events for the configurations
             EventConsumerServiceImpl eventServiceConsumer = new EventConsumerServiceImpl(comServices.getEventService().getConnectionProvider().getConnectionDetails());
 
-            // For the Configuration service: area=3 ; service=5; version=1
-//            ObjectType objType = HelperCOM.generateCOMObjectType(3, 5, 1, 0);  // Listen only to Configuration events
-            ObjectType objType = ConfigurationServiceInfo.CONFIGURATIONOBJECTS_OBJECT_TYPE;  // Listen only to Configuration events
-            objType.setNumber(new UShort((short) 0));  // Select "any" object from the Configuration service
+            // Listen only to Configuration events
+            ObjectType original = ConfigurationServiceInfo.CONFIGURATIONOBJECTS_OBJECT_TYPE;
+            ObjectType objType = new ObjectType(original.getArea(),
+                    original.getService(),
+                    original.getVersion(),
+                    new UShort((short) 0)); // Select "any" object from the Configuration service
+
             Long key2 = HelperCOM.generateSubKey(objType);
-            Subscription subscription = ConnectionConsumer.subscriptionKeys(new Identifier("*"), key2, 0L, 0L);
+            Subscription subscriptionPartial = ConnectionConsumer.subscriptionKeys(new Identifier("*"), key2, 0L, 0L);
             Identifier subId = new Identifier("ConfigurationEvent" + random.nextInt());  // Add some randomness in the subscriptionId to avoid colisions
 
-            subscription.setSubscriptionId(subId);
+            Subscription subscription = new Subscription(subId, null, null, subscriptionPartial.getFilters());
+            //subscription.setSubscriptionId(subId);
             EventConsumerConfigurationCallbackAdapter adapter = new EventConsumerConfigurationCallbackAdapter(objId);
             eventServiceConsumer.getEventStub().monitorEventRegister(subscription, adapter);
 

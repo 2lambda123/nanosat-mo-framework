@@ -131,10 +131,10 @@ public class ConfigurationEventAdapter extends EventAdapter implements Serializa
             ObjectType objType = ConfigurationServiceInfo.CONFIGURATIONOBJECTS_OBJECT_TYPE;
 
             ArchiveDetails archiveDetails = new ArchiveDetails(new Long(0),
-            new ObjectDetails(entityKey3, null),
-            null,
-            HelperTime.getTimestamp(),
-            msgHeader.getFromURI());
+                    new ObjectDetails(entityKey3, null),
+                    null,
+                    HelperTime.getTimestamp(),
+                    msgHeader.getFromURI());
 
             ArchiveDetailsList archiveDetailsList = new ArchiveDetailsList();
             archiveDetailsList.add(archiveDetails);
@@ -189,9 +189,10 @@ public class ConfigurationEventAdapter extends EventAdapter implements Serializa
         ObjectType objTypeEvent = ConfigurationServiceInfo.CONFIGURATIONSTORED_OBJECT_TYPE;
         BooleanList bool = new BooleanList();
         bool.add(true);  // Success
-        ObjectId eventSource = new ObjectId();
-        eventSource.setType(ConfigurationServiceInfo.CONFIGURATIONOBJECTS_OBJECT_TYPE);
-        eventSource.setKey(new ObjectKey(providerDomain, objId));
+        ObjectId eventSource = new ObjectId(
+                ConfigurationServiceInfo.CONFIGURATIONOBJECTS_OBJECT_TYPE,
+                new ObjectKey(providerDomain, objId)
+        );
 
         try {
             comServices.getEventService().publishEvent(

@@ -462,7 +462,6 @@ public final class AggregationManager extends MCManager {
      * @return
      */
     public AggregationValue getValue(Long identityId) {
-        AggregationValue aVal = new AggregationValue();
         AggregationDefinitionDetails aggrDef = this.getAggregationDefinition(identityId);
         AggregationParameterSetList parameterSets = aggrDef.getParameterSets();
         AggregationSetValueList parameterSetValues = new AggregationSetValueList();
@@ -474,10 +473,7 @@ public final class AggregationManager extends MCManager {
             parameterSetValues.add(aggrSetValue);
         }
 
-        aVal.setParameterSetValues(parameterSetValues);
-        aVal.setGenerationMode(GenerationMode.ADHOC);
-        aVal.setFiltered(false);
-        return aVal;
+        return new AggregationValue(GenerationMode.ADHOC, false, parameterSetValues);
     }
 
     /**
@@ -492,7 +488,6 @@ public final class AggregationManager extends MCManager {
      * @return the most recent values
      */
     public AggregationValue getAggregationValue(Long identityId, GenerationMode generationMode) {
-        AggregationValue aVal = new AggregationValue();
         AggregationDefinitionDetails aggrDef = this.getAggregationDefinition(identityId);
         AggregationParameterSetList parameterSets = aggrDef.getParameterSets();
         AggregationSetValueList parameterSetValues = new AggregationSetValueList();
@@ -514,11 +509,9 @@ public final class AggregationManager extends MCManager {
                 parameterSetValues.add(parameterSetValue);
             }
         }
-        //set the current parameterSetList as the current aggregation vakues
-        aVal.setParameterSetValues(parameterSetValues);
-        aVal.setGenerationMode(generationMode);
-        aVal.setFiltered(isFilterTriggered(identityId));
-        return aVal;
+        //set the current parameterSetList as the current aggregation values
+        return new AggregationValue(generationMode, isFilterTriggered(identityId), parameterSetValues);
+        
     }
 
     /**
@@ -536,7 +529,8 @@ public final class AggregationManager extends MCManager {
     private AggregationSetValue calcAggrSetValueTimes(GenerationMode generationMode,
             Duration sampleInterval, Duration updateInterval, Long identityId, int indexParameterSet) {
         //periodic updates should get the value from the last sampled value
-        AggregationSetValue parameterSetValue = new AggregationSetValue();
+        AggregationSetValue parameterSetValue;
+
         if (generationMode == GenerationMode.PERIODIC
                 && sampleInterval.getValue() != 0
                 && sampleInterval.getValue() < updateInterval.getValue()) {
@@ -557,11 +551,9 @@ public final class AggregationManager extends MCManager {
             // Delta-TIme =  firstSampleTime(Setx) - (firstSampleTime(Setx-1) + y*sampleInterval) | y = amount of updates.
             Duration deltaTime = new Duration(((float) (firstSampleTime.getValue() - previousSetTimeStamp.getValue())) / 1000);
             // Duration is in seconds but Time is in miliseconds
-            parameterSetValue.setDeltaTime(deltaTime);
-            parameterSetValue.setIntervalTime(sampleInterval);
+            parameterSetValue = new AggregationSetValue(deltaTime, sampleInterval, null);
         } else {  // a new sample should be generated (if the generationMode is ADHOC or FILTEREDTIMEOUT, or the sampleInterval is out of the updateInterval range)
-            parameterSetValue.setDeltaTime(null);
-            parameterSetValue.setIntervalTime(null);
+            parameterSetValue = new AggregationSetValue(null, null, null);
         }
         return parameterSetValue;
     }

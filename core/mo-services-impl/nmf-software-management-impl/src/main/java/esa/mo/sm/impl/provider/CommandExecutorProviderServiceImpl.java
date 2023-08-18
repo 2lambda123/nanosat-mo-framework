@@ -219,8 +219,9 @@ public class CommandExecutorProviderServiceImpl extends CommandExecutorInheritan
       throw new MALException("Cannot start the process!", ex);
     }
     long pid = getProcessPid(proc);
-    command.setPid(new UInteger(pid));
-    updateCommandDetails(storedCommandObject, command);
+    //command.setPid(new UInteger(pid));
+    updateCommandDetails(storedCommandObject,
+            new CommandDetails(command.getCommand(), new UInteger(pid), command.getExitCode()));
     return storedCommandObject;
   }
 
@@ -271,8 +272,9 @@ public class CommandExecutorProviderServiceImpl extends CommandExecutorInheritan
     }
     try {
       CommandDetails command = getCommandDetails(objId);
-      command.setExitCode(exitCode);
-      updateCommandDetails(objId, command);
+      //command.setExitCode(exitCode);
+      updateCommandDetails(objId,
+              new CommandDetails(command.getCommand(), command.getPid(), exitCode));
     } catch (IOException ex) {
       LOGGER.log(Level.SEVERE, "Cannot update COM Command object", ex);
     }

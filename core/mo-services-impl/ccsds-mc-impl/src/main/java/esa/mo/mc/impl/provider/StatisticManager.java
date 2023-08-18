@@ -549,14 +549,9 @@ public final class StatisticManager {
             return null;
         }
 
-        StatisticValue statValue = new StatisticValue();
-        statValue.setStartTime(times.get(0));
-        statValue.setEndTime(times.get(times.size() - 1)); // Last element
-        statValue.setSampleCount(new UInteger(times.size()));
         long paramDefInstId = parameterManager.getDefinitionId(paramIdentityId);
-        statValue.setParamDefInstId(paramDefInstId);
-
-        return statValue;
+        return new StatisticValue(paramDefInstId, times.get(0),times.get(times.size() - 1),
+                null, null, new UInteger(times.size()));
     }
 
     public Boolean reconfigureLinks(LongList objIds, StatisticCreationRequestList statisticParameterDetailsList) {
@@ -618,8 +613,7 @@ public final class StatisticManager {
                 this.dataSets.get(objId).add(null);
                 this.timeSets.get(objId).add(time);
             } else {
-                AttributeValue value = new AttributeValue();
-                value.setValue(attribute);
+                AttributeValue value = new AttributeValue(attribute);
                 this.dataSets.get(objId).add(value);
                 this.timeSets.get(objId).add(time);
             }

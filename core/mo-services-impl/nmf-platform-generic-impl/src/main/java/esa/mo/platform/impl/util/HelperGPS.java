@@ -125,22 +125,6 @@ public class HelperGPS
    */
   public static Position gpggalong2Position(String gpgga) throws IOException
   {
-    Position pos = new Position();
-    String[] items = gpgga.split(",");
-    pos.setAltitude(Float.parseFloat(items[GPGGA_GEN_COL.ALTITUDE]));
-    pos.setLatitude(
-        DDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LAT]) * ((items[GPGGA_GEN_COL.LAT_DIR]).equals("S")
-        ? -1 : 1));
-    pos.setLongitude(
-        DDDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LONG]) * ((items[GPGGA_GEN_COL.LONG_DIR]).equals(
-        "W") ? -1 : 1));
-
-    PositionExtraDetails posExtraDetails = new PositionExtraDetails();
-    posExtraDetails.setFixQuality(Integer.parseInt(items[GPGGA_GEN_COL.QUAL]));
-    posExtraDetails.setHdop(Float.parseFloat(items[GPGGA_GEN_COL.HDOP]));
-    posExtraDetails.setNumberOfSatellites(Integer.parseInt(items[GPGGA_GEN_COL.SATS_IN_USE]));
-    posExtraDetails.setUndulation(Float.parseFloat(items[GPGGA_GEN_COL.UNDULATION]));
-
     /*
     * Time needs to be calculated, because GGA message only contains
     * Hours, minutes and seconds but not day and year
@@ -150,6 +134,7 @@ public class HelperGPS
     * mm = minute of hour
     * ss.sss = second in Minute (with fractional second)
      */
+    String[] items = gpgga.split(",");
     String time = items[GPGGA_GEN_COL.UTC];
     int hours = Integer.valueOf(time.substring(0, 2));
     int minutes = Integer.valueOf(time.substring(2, 4));
@@ -177,10 +162,34 @@ public class HelperGPS
       cal.set(Calendar.DAY_OF_YEAR, cal.get(Calendar.DAY_OF_YEAR) - 1);
     }
 
+    PositionExtraDetails posExtraDetails = new PositionExtraDetails(
+        new Time(cal.toInstant().toEpochMilli()),
+        Integer.parseInt(items[GPGGA_GEN_COL.QUAL]),
+        Integer.parseInt(items[GPGGA_GEN_COL.SATS_IN_USE]),
+        Float.parseFloat(items[GPGGA_GEN_COL.HDOP]),
+        Float.parseFloat(items[GPGGA_GEN_COL.UNDULATION]));
+    /*
     posExtraDetails.setUtc(new Time(cal.toInstant().toEpochMilli()));
+    posExtraDetails.setFixQuality(Integer.parseInt(items[GPGGA_GEN_COL.QUAL]));
+    posExtraDetails.setNumberOfSatellites(Integer.parseInt(items[GPGGA_GEN_COL.SATS_IN_USE]));
+    posExtraDetails.setHdop(Float.parseFloat(items[GPGGA_GEN_COL.HDOP]));
+    posExtraDetails.setUndulation(Float.parseFloat(items[GPGGA_GEN_COL.UNDULATION]));
 
+    Position position = new Position();
+    pos.setLatitude(
+        DDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LAT]) * ((items[GPGGA_GEN_COL.LAT_DIR]).equals("S")
+        ? -1 : 1));
+    pos.setLongitude(
+        DDDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LONG]) * ((items[GPGGA_GEN_COL.LONG_DIR]).equals(
+        "W") ? -1 : 1));
+    pos.setAltitude(Float.parseFloat(items[GPGGA_GEN_COL.ALTITUDE]));
     pos.setExtraDetails(posExtraDetails);
-    return pos;
+    */
+    return new Position(
+        DDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LAT]) * ((items[GPGGA_GEN_COL.LAT_DIR]).equals("S") ? -1 : 1),
+        DDDMMpMMMMMMM2degrees(items[GPGGA_GEN_COL.LONG]) * ((items[GPGGA_GEN_COL.LONG_DIR]).equals("W") ? -1 : 1),
+        Float.parseFloat(items[GPGGA_GEN_COL.ALTITUDE]),
+        posExtraDetails);
   }
 
   /**

@@ -571,10 +571,7 @@ public class ActionProviderServiceImpl extends ActionInheritanceSkeleton impleme
         list.get(1).setObjType(ActionServiceInfo.ACTIONDEFINITION_OBJECT_TYPE);
 
         // Needs the Common API here!
-        ConfigurationObjectDetails set = new ConfigurationObjectDetails();
-        set.setConfigObjects(list);
-
-        return set;
+        return new ConfigurationObjectDetails(list);
     }
 
     @Override

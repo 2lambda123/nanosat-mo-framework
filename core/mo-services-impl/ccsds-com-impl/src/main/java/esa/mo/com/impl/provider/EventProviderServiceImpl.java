@@ -488,7 +488,7 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
      * Stores an Event in the Archive
      */
     private Long storeEventOnArchive(final ObjectDetailsList objectDetailsList, final IdentifierList domain,
-            final ObjectType objType, final ElementList events, final URI uri, final Identifier network) {
+            final ObjectType objType, final ElementList events, URI uri, Identifier network) {
 
         if (this.archiveService == null) {
             return null;
@@ -499,24 +499,34 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
             // Currently being taken
         }
 
-        ArchiveDetails archiveDetails = new ArchiveDetails();
+        if (network == null) {
+            network = ConfigurationProviderSingleton.getNetwork();
+        }
+
+        if (uri == null) {
+            uri = connection.getConnectionDetails().getProviderURI();
+        }
+        
+        ArchiveDetails archiveDetails = new ArchiveDetails(new Long(0),
+            objectDetailsList.get(0), network, HelperTime.getTimestamp(), uri);
+        
+        /*
         archiveDetails.setDetails(objectDetailsList.get(0));
         archiveDetails.setInstId(new Long(0)); // no need to worry about objIds
+        archiveDetails.setTimestamp(HelperTime.getTimestamp());
 
         if (network != null) {
             archiveDetails.setNetwork(network);
         } else {
             archiveDetails.setNetwork(ConfigurationProviderSingleton.getNetwork());
         }
-
         if (uri != null) {
             archiveDetails.setProvider(uri);
         } else {
             archiveDetails.setProvider(connection.getConnectionDetails().getProviderURI());
         }
-
-        archiveDetails.setTimestamp(HelperTime.getTimestamp());
-
+*/
+        
         ArchiveDetailsList archiveDetailsList = new ArchiveDetailsList();
         archiveDetailsList.add(archiveDetails);
 

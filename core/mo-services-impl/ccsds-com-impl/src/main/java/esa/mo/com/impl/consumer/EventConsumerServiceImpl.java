@@ -48,6 +48,7 @@ import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.NullableAttributeList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
 import org.ccsds.moims.mo.mal.structures.SubscriptionList;
+import org.ccsds.moims.mo.mal.structures.UOctet;
 import org.ccsds.moims.mo.mal.structures.UShort;
 import org.ccsds.moims.mo.mal.structures.Union;
 import org.ccsds.moims.mo.mal.structures.UpdateHeader;
@@ -156,8 +157,15 @@ public class EventConsumerServiceImpl extends ConsumerServiceImpl {
                         */
                         // (UShort area, UShort service, UOctet version, UShort number)
                         // (UShort area, UShort service, UOctet version, 0)
-                        ObjectType objType = HelperCOM.objectTypeId2objectType(entityKey2);
-                        objType.setNumber(new UShort(Integer.parseInt(entityKey1.toString())));
+                        // ObjectType objType = HelperCOM.objectTypeId2objectType(entityKey2);
+                        //objType.setNumber(new UShort(Integer.parseInt(entityKey1.toString())));
+
+                        final long unwrap = (long) entityKey2;
+
+                        ObjectType objType = new ObjectType(new UShort((short) (unwrap >> 48)),
+                                new UShort((short) (unwrap >> 32)),
+                                new UOctet((byte) (unwrap >> 24)),
+                                new UShort(Integer.parseInt(entityKey1.toString())));
 
                         Object nativeBody = element;
                         Element body = (Element) HelperAttributes.javaType2Attribute(nativeBody);

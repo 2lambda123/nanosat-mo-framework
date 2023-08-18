@@ -121,40 +121,47 @@ public class HelperCommon {
      * @return The filtered ProviderSummary
      */
     public static ProviderSummary selectBestIPCTransport(final ProviderSummary provider) {
-        final ProviderSummary newSummary = new ProviderSummary();
-        newSummary.setProviderKey(provider.getProviderKey());
-        newSummary.setProviderId(provider.getProviderId());
-
-        final ProviderDetails details = new ProviderDetails();
-        newSummary.setProviderDetails(details);
-        details.setProviderAddresses(provider.getProviderDetails().getProviderAddresses());
+        //newSummary.setProviderKey(provider.getProviderKey());
+        //newSummary.setProviderId(provider.getProviderId());
+        //newSummary.setProviderDetails(details);
 
         final ServiceCapabilityList oldCapabilities = provider.getProviderDetails().getServiceCapabilities();
         final ServiceCapabilityList newCapabilities = new ServiceCapabilityList();
+        final ProviderDetails details = new ProviderDetails(newCapabilities,
+            provider.getProviderDetails().getProviderAddresses());
+        final ProviderSummary newSummary = new ProviderSummary(provider.getProviderKey(),
+            provider.getProviderId(), details);
 
         for (int i = 0; i < oldCapabilities.size(); i++) {
             AddressDetailsList addresses = oldCapabilities.get(i).getServiceAddresses();
-            ServiceCapability cap = new ServiceCapability();
-            cap.setServiceKey(oldCapabilities.get(i).getServiceKey());
-            cap.setServiceProperties(oldCapabilities.get(i).getServiceProperties());
-            cap.setSupportedCapabilitySets(oldCapabilities.get(i).getSupportedCapabilitySets());
+            AddressDetailsList serviceAddresses = null;
 
             try {
                 final int bestIndex = getBestIPCServiceAddressIndex(addresses);
 
                 // Select only the best address for IPC
-                AddressDetailsList newAddresses = new AddressDetailsList();
-                newAddresses.add(addresses.get(bestIndex));
-                cap.setServiceAddresses(newAddresses);
+                serviceAddresses = new AddressDetailsList();
+                serviceAddresses.add(addresses.get(bestIndex));
             } catch (IllegalArgumentException ex) {
                 LOGGER.log(Level.SEVERE,
                         "The best IPC service address index could not be determined!", ex);
             }
-
+            ServiceCapability cap = new ServiceCapability(
+                oldCapabilities.get(i).getServiceKey(),
+                oldCapabilities.get(i).getSupportedCapabilitySets(),
+                oldCapabilities.get(i).getServiceProperties(),
+                serviceAddresses);
+            /*
+            cap.setServiceKey(oldCapabilities.get(i).getServiceKey());
+            cap.setSupportedCapabilitySets(oldCapabilities.get(i).getSupportedCapabilitySets());
+            cap.setServiceProperties(oldCapabilities.get(i).getServiceProperties());
+            cap.setServiceAddresses(newAddresses);
+            */
             newCapabilities.add(cap);
         }
 
-        details.setServiceCapabilities(newCapabilities);
+        //details.setServiceCapabilities(newCapabilities);
+        //details.setProviderAddresses(provider.getProviderDetails().getProviderAddresses());
 
         return newSummary;
     }

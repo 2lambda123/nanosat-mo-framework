@@ -109,14 +109,13 @@ public class PersistProviderConfiguration {
 
             // Store the provider configuration objects
             ConfigurationObjectDetailsList archObj = new ConfigurationObjectDetailsList(1);
-            ConfigurationObjectDetails providerObjects = new ConfigurationObjectDetails();
             ConfigurationObjectSetList setList = new ConfigurationObjectSetList(1);
             ConfigurationObjectSet set = new ConfigurationObjectSet(ConfigurationServiceInfo.SERVICECONFIGURATION_OBJECT_TYPE,
             ConfigurationProviderSingleton.getDomain(),
             objIds);
 
             setList.add(set);
-            providerObjects.setConfigObjects(setList);
+            ConfigurationObjectDetails providerObjects = new ConfigurationObjectDetails(setList);
             archObj.add(providerObjects);
 
             LongList objIds3 = this.archiveService.store(
@@ -130,8 +129,9 @@ public class PersistProviderConfiguration {
             // Store the provider configuration
             // Related points to the Provider's Configuration Object
             ArchiveDetailsList details = HelperArchive.generateArchiveDetailsList(objIds3.get(0),
-                    null, ConfigurationProviderSingleton.getNetwork(), new URI(""));
-            details.get(0).setInstId(confId.getKey().getInstId());
+                    null, ConfigurationProviderSingleton.getNetwork(),
+                    new URI(""), confId.getKey().getInstId());
+
             IdentifierList providerNameList = new IdentifierList(1);
             providerNameList.add(provider.getProviderName());
 

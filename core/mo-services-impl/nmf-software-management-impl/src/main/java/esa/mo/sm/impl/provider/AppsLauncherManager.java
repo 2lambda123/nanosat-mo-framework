@@ -214,8 +214,7 @@ public class AppsLauncherManager extends DefinitionsManager
     AppDetailsList defs = new AppDetailsList();
     defs.add(definition);
     final ArchiveDetailsList archDetails = HelperArchive.generateArchiveDetailsList(related,
-        source, uri);
-    archDetails.get(0).setInstId(objId);
+        source, ConfigurationProviderSingleton.getNetwork(), uri, objId);
 
     return super.getArchiveService().store(
         true,
@@ -824,13 +823,13 @@ public class AppsLauncherManager extends DefinitionsManager
 
   private AppDetails readAppDescriptor(final String appName, final File propertiesFile)
   {
-    final AppDetails app = new AppDetails();
-    app.setName(new Identifier(appName)); // Use the name of the folder
+    AppDetails app = new AppDetails(new Identifier(appName),
+            null, null, null, null, null);
+    //app.setName(new Identifier(appName)); // Use the name of the folder
 
     try (FileInputStream inputStream = new FileInputStream(propertiesFile)){
       final Properties props = new Properties();
       props.load(inputStream);
-      app.setExtraInfo(HelperMisc.PROVIDER_PROPERTIES_FILE);
 
       final String category = (props.getProperty(HelperMisc.APP_CATEGORY) != null) ? props.
           getProperty(HelperMisc.APP_CATEGORY) : "-";
@@ -844,6 +843,8 @@ public class AppsLauncherManager extends DefinitionsManager
           HelperMisc.APP_USER)
           : null; // Since the user change is only implemented on linux this dependency is fine
 
+      /*
+      app.setExtraInfo(HelperMisc.PROVIDER_PROPERTIES_FILE);
       app.setCategory(new Identifier(category));
       app.setVersion(version);
       app.setCopyright(copyright);
@@ -852,6 +853,10 @@ public class AppsLauncherManager extends DefinitionsManager
 
       app.setRunAtStartup(false); // This is not supported in this implementation
       app.setRunning(false); // Default values
+      */
+      return new AppDetails(new Identifier(appName), description, version,
+              new Identifier(category), false, false, 
+              HelperMisc.PROVIDER_PROPERTIES_FILE, copyright, user); 
     } catch (IOException ex) {
       LOGGER.log(Level.SEVERE, null, ex);
     }
