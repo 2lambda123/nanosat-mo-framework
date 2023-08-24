@@ -137,7 +137,7 @@ public class ProtocolBridge {
         MALMessageBody body = srcMessage.getBody();
 
         System.out.println("cloneForwardMessage from : " + sourceHdr.getFrom()
-                + "                to  :    " + sourceHdr.getToURI());
+                + "                to  :    " + sourceHdr.getTo());
         String endpointUriPart = sourceHdr.getTo().getValue();
         final int iSecond = endpointUriPart.indexOf("@");
         endpointUriPart = endpointUriPart.substring(iSecond + 1, endpointUriPart.length());
