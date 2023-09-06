@@ -51,6 +51,7 @@ import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.Blob;
 import org.ccsds.moims.mo.mal.structures.Duration;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -570,7 +571,7 @@ public class GroundMOAdapterImpl extends NMFConsumer implements SimpleCommanding
               actionConnection.getProviderURI());
 
       boolean returnObjInstIds = true;
-      ActionInstanceDetailsList instanceDetailsList = new ActionInstanceDetailsList();
+      HeterogeneousList instanceDetailsList = new HeterogeneousList();
       instanceDetailsList.add(instanceDetails);
 
       LongList objIdActionInstances =
@@ -603,7 +604,7 @@ public class GroundMOAdapterImpl extends NMFConsumer implements SimpleCommanding
 
       // Store the corresponding OperationActivity object instance in the
       // Archive and publish its release
-      OperationActivityList opActivityList = new OperationActivityList();
+      HeterogeneousList opActivityList = new HeterogeneousList();
       opActivityList.add(new OperationActivity(msg.getHeader().getInteractionType()));
 
       related = null;

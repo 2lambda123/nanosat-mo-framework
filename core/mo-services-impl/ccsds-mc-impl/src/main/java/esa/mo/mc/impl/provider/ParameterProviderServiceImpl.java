@@ -60,8 +60,10 @@ import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Duration;
+import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.FineTime;
 import org.ccsds.moims.mo.mal.structures.FineTimeList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -391,7 +393,7 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
 
         //requirement: 3.3.9.2.h, 3.3.9.2.i
         List<ParameterInstance> toPublishParamInstances = new ArrayList<ParameterInstance>();
-        ParameterValueList noPublishParamValList = new ParameterValueList();
+        HeterogeneousList noPublishParamValList = new HeterogeneousList();
         LongList noPublishRelatedIds = new LongList();
         ObjectIdList noPublishSourceIds = new ObjectIdList();
         FineTimeList timestamps = new FineTimeList();
@@ -968,7 +970,7 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
             }
 
             final ObjectInstancePairList outIds = new ObjectInstancePairList(parameters.size());
-            final ParameterValueList parameterValueList = new ParameterValueList(parameters.size());
+            final HeterogeneousList parameterValueList = new HeterogeneousList();
             final List<ParameterInstance> parameterInstances = new ArrayList<>(parameters.size());
 
             for (int i = 0; i < parameters.size(); i++) {
@@ -1054,7 +1056,7 @@ public class ParameterProviderServiceImpl extends ParameterInheritanceSkeleton i
             } else {
                 // Well, if we don't store it, then we shall use the local unique variable
                 pValObjIds = new LongList(parameterValueList.size());
-                for (ParameterValue parameterVal : parameterValueList) {
+                for (Element parameterVal : parameterValueList) {
                     pValObjIds.add(pValUniqueObjId.incrementAndGet());
                 }
             }

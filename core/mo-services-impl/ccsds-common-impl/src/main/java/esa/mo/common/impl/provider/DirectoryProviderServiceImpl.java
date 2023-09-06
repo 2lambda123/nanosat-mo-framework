@@ -60,6 +60,7 @@ import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.FileList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.IntegerList;
@@ -85,8 +86,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
   private boolean initialiased = false;
   private boolean running = false;
   private final ConnectionProvider connection = new ConnectionProvider();
-  protected final HashMap<Long, PublishDetails> providersAvailable
-      = new HashMap<Long, PublishDetails>();
+  protected final HashMap<Long, PublishDetails> providersAvailable = new HashMap<>();
   protected final Object MUTEX = new Object();
   private COMServicesProvider comServices;
 
@@ -378,7 +378,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
       final MALInteraction interaction) throws MALInteractionException, MALException
   {
     Identifier serviceProviderName = newProviderDetails.getProviderId();
-    IdentifierList objBodies = new IdentifierList();
+    HeterogeneousList objBodies = new HeterogeneousList();
     objBodies.add(serviceProviderName);
 
     PublishProviderResponse response = new PublishProviderResponse();
@@ -440,7 +440,7 @@ public class DirectoryProviderServiceImpl extends DirectoryInheritanceSkeleton
               connection.getPrimaryConnectionDetails().getProviderURI())
           : HelperArchive.generateArchiveDetailsList(servProvObjId, null, interaction);
 
-      ProviderDetailsList capabilities = new ProviderDetailsList(1);
+      HeterogeneousList capabilities = new HeterogeneousList();
       capabilities.add(newProviderDetails.getProviderDetails());
 
       // Store in the Archive the ProviderCapabilities COM object

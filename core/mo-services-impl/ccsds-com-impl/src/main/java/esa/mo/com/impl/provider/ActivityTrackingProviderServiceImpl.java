@@ -50,6 +50,7 @@ import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.structures.Duration;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.UInteger;
 import org.ccsds.moims.mo.mal.structures.URI;
@@ -317,7 +318,7 @@ public class ActivityTrackingProviderServiceImpl {
             return null;
         }
 
-        final OperationActivityList opActivityList = new OperationActivityList();
+        final HeterogeneousList opActivityList = new HeterogeneousList();
         opActivityList.add(new OperationActivity(interaction.getMessageHeader().getInteractionType()));
 
         // requirement: 3.5.2.3

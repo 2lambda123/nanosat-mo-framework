@@ -4736,11 +4736,6 @@ public class RegressionTest0
     boolean boolean78 = java.util.Collections.addAll(
         (java.util.Collection<java.lang.Byte>) byteList77, byteArray76);
     boolean boolean80 = byteList77.add((java.lang.Byte) (byte) 0);
-    org.ccsds.moims.mo.mal.structures.UOctet uOctet81 =
-        org.ccsds.moims.mo.mal.structures.UShortList.AREA_VERSION;
-    org.ccsds.moims.mo.mal.structures.UShort uShort82 = uOctet81.getAreaNumber();
-    int int83 = byteList77.lastIndexOf((java.lang.Object) uShort82);
-    boolean boolean84 = byteList70.equals((java.lang.Object) uShort82);
     boolean boolean85 = uRIList63.removeAll((java.util.Collection<java.lang.Byte>) byteList70);
     org.ccsds.moims.mo.mal.structures.URI[] uRIArray86 =
         new org.ccsds.moims.mo.mal.structures.URI[]{};
@@ -4804,10 +4799,6 @@ public class RegressionTest0
     org.junit.Assert.assertNotNull(byteArray76);
     org.junit.Assert.assertTrue("'" + boolean78 + "' != '" + true + "'", boolean78 == true);
     org.junit.Assert.assertTrue("'" + boolean80 + "' != '" + true + "'", boolean80 == true);
-    org.junit.Assert.assertNotNull(uOctet81);
-    org.junit.Assert.assertNotNull(uShort82);
-    org.junit.Assert.assertTrue("'" + int83 + "' != '" + (-1) + "'", int83 == (-1));
-    org.junit.Assert.assertTrue("'" + boolean84 + "' != '" + false + "'", boolean84 == false);
     org.junit.Assert.assertTrue("'" + boolean85 + "' != '" + false + "'", boolean85 == false);
     org.junit.Assert.assertNotNull(uRIArray86);
     org.junit.Assert.assertTrue("'" + boolean88 + "' != '" + false + "'", boolean88 == false);
@@ -6624,11 +6615,6 @@ public class RegressionTest0
     boolean boolean78 = java.util.Collections.addAll(
         (java.util.Collection<java.lang.Byte>) byteList77, byteArray76);
     boolean boolean80 = byteList77.add((java.lang.Byte) (byte) 0);
-    org.ccsds.moims.mo.mal.structures.UOctet uOctet81 =
-        org.ccsds.moims.mo.mal.structures.UShortList.AREA_VERSION;
-    org.ccsds.moims.mo.mal.structures.UShort uShort82 = uOctet81.getAreaNumber();
-    int int83 = byteList77.lastIndexOf((java.lang.Object) uShort82);
-    boolean boolean84 = byteList70.equals((java.lang.Object) uShort82);
     boolean boolean85 = uRIList63.removeAll((java.util.Collection<java.lang.Byte>) byteList70);
     org.ccsds.moims.mo.mal.structures.URI[] uRIArray86 =
         new org.ccsds.moims.mo.mal.structures.URI[]{};
@@ -6692,10 +6678,6 @@ public class RegressionTest0
     org.junit.Assert.assertNotNull(byteArray76);
     org.junit.Assert.assertTrue("'" + boolean78 + "' != '" + true + "'", boolean78 == true);
     org.junit.Assert.assertTrue("'" + boolean80 + "' != '" + true + "'", boolean80 == true);
-    org.junit.Assert.assertNotNull(uOctet81);
-    org.junit.Assert.assertNotNull(uShort82);
-    org.junit.Assert.assertTrue("'" + int83 + "' != '" + (-1) + "'", int83 == (-1));
-    org.junit.Assert.assertTrue("'" + boolean84 + "' != '" + false + "'", boolean84 == false);
     org.junit.Assert.assertTrue("'" + boolean85 + "' != '" + false + "'", boolean85 == false);
     org.junit.Assert.assertNotNull(uRIArray86);
     org.junit.Assert.assertTrue("'" + boolean88 + "' != '" + false + "'", boolean88 == false);
@@ -7804,14 +7786,8 @@ public class RegressionTest0
         uShortList1.spliterator();
     org.ccsds.moims.mo.mal.structures.UShort uShort6 = uShortList1.getServiceNumber();
     org.ccsds.moims.mo.mal.structures.UShort uShort7 = uShortList1.getServiceNumber();
-    org.ccsds.moims.mo.mal.structures.UShort uShort8 =
-        org.ccsds.moims.mo.mal.structures.FloatList.SERVICE_SHORT_FORM;
-    org.ccsds.moims.mo.mal.structures.UShort[] uShortArray9 =
-        new org.ccsds.moims.mo.mal.structures.UShort[]{uShort8};
     java.util.ArrayList<org.ccsds.moims.mo.mal.structures.UShort> uShortList10 =
         new java.util.ArrayList<org.ccsds.moims.mo.mal.structures.UShort>();
-    boolean boolean11 = java.util.Collections.addAll(
-        (java.util.Collection<org.ccsds.moims.mo.mal.structures.UShort>) uShortList10, uShortArray9);
     int int12 = uShortList10.size();
     java.util.Spliterator<org.ccsds.moims.mo.mal.structures.UShort> uShortSpliterator13 =
         uShortList10.spliterator();
@@ -7879,9 +7855,6 @@ public class RegressionTest0
     org.junit.Assert.assertNotNull(uShortSpliterator5);
     org.junit.Assert.assertNotNull(uShort6);
     org.junit.Assert.assertNotNull(uShort7);
-    org.junit.Assert.assertNotNull(uShort8);
-    org.junit.Assert.assertNotNull(uShortArray9);
-    org.junit.Assert.assertTrue("'" + boolean11 + "' != '" + true + "'", boolean11 == true);
     org.junit.Assert.assertTrue("'" + int12 + "' != '" + 1 + "'", int12 == 1);
     org.junit.Assert.assertNotNull(uShortSpliterator13);
     org.junit.Assert.assertNotNull(uShortStream14);
@@ -8503,11 +8476,6 @@ public class RegressionTest0
     boolean boolean78 = java.util.Collections.addAll(
         (java.util.Collection<java.lang.Byte>) byteList77, byteArray76);
     boolean boolean80 = byteList77.add((java.lang.Byte) (byte) 0);
-    org.ccsds.moims.mo.mal.structures.UOctet uOctet81 =
-        org.ccsds.moims.mo.mal.structures.UShortList.AREA_VERSION;
-    org.ccsds.moims.mo.mal.structures.UShort uShort82 = uOctet81.getAreaNumber();
-    int int83 = byteList77.lastIndexOf((java.lang.Object) uShort82);
-    boolean boolean84 = byteList70.equals((java.lang.Object) uShort82);
     boolean boolean85 = uRIList63.removeAll((java.util.Collection<java.lang.Byte>) byteList70);
     org.ccsds.moims.mo.mal.structures.URI[] uRIArray86 =
         new org.ccsds.moims.mo.mal.structures.URI[]{};
@@ -8570,10 +8538,6 @@ public class RegressionTest0
     org.junit.Assert.assertNotNull(byteArray76);
     org.junit.Assert.assertTrue("'" + boolean78 + "' != '" + true + "'", boolean78 == true);
     org.junit.Assert.assertTrue("'" + boolean80 + "' != '" + true + "'", boolean80 == true);
-    org.junit.Assert.assertNotNull(uOctet81);
-    org.junit.Assert.assertNotNull(uShort82);
-    org.junit.Assert.assertTrue("'" + int83 + "' != '" + (-1) + "'", int83 == (-1));
-    org.junit.Assert.assertTrue("'" + boolean84 + "' != '" + false + "'", boolean84 == false);
     org.junit.Assert.assertTrue("'" + boolean85 + "' != '" + false + "'", boolean85 == false);
     org.junit.Assert.assertNotNull(uRIArray86);
     org.junit.Assert.assertTrue("'" + boolean88 + "' != '" + false + "'", boolean88 == false);
@@ -8762,11 +8726,6 @@ public class RegressionTest0
     boolean boolean78 = java.util.Collections.addAll(
         (java.util.Collection<java.lang.Byte>) byteList77, byteArray76);
     boolean boolean80 = byteList77.add((java.lang.Byte) (byte) 0);
-    org.ccsds.moims.mo.mal.structures.UOctet uOctet81 =
-        org.ccsds.moims.mo.mal.structures.UShortList.AREA_VERSION;
-    org.ccsds.moims.mo.mal.structures.UShort uShort82 = uOctet81.getAreaNumber();
-    int int83 = byteList77.lastIndexOf((java.lang.Object) uShort82);
-    boolean boolean84 = byteList70.equals((java.lang.Object) uShort82);
     boolean boolean85 = uRIList63.removeAll((java.util.Collection<java.lang.Byte>) byteList70);
     org.ccsds.moims.mo.mal.structures.URI[] uRIArray86 =
         new org.ccsds.moims.mo.mal.structures.URI[]{};
@@ -8830,10 +8789,6 @@ public class RegressionTest0
     org.junit.Assert.assertNotNull(byteArray76);
     org.junit.Assert.assertTrue("'" + boolean78 + "' != '" + true + "'", boolean78 == true);
     org.junit.Assert.assertTrue("'" + boolean80 + "' != '" + true + "'", boolean80 == true);
-    org.junit.Assert.assertNotNull(uOctet81);
-    org.junit.Assert.assertNotNull(uShort82);
-    org.junit.Assert.assertTrue("'" + int83 + "' != '" + (-1) + "'", int83 == (-1));
-    org.junit.Assert.assertTrue("'" + boolean84 + "' != '" + false + "'", boolean84 == false);
     org.junit.Assert.assertTrue("'" + boolean85 + "' != '" + false + "'", boolean85 == false);
     org.junit.Assert.assertNotNull(uRIArray86);
     org.junit.Assert.assertTrue("'" + boolean88 + "' != '" + false + "'", boolean88 == false);

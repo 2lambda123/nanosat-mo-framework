@@ -42,6 +42,7 @@ import org.ccsds.moims.mo.mal.MOErrorException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.FineTime;
 import org.ccsds.moims.mo.mal.structures.FineTimeList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -162,7 +163,7 @@ public class ParameterManager extends MCManager
       uniqueObjIdPVal++;
       return this.uniqueObjIdPVal;
     } else {
-      ParameterValueList pValList = new ParameterValueList();
+      HeterogeneousList pValList = new HeterogeneousList();
       pValList.add(pVal);
       final Long related = getDefinitionId(identityId);
 
@@ -213,7 +214,7 @@ public class ParameterManager extends MCManager
    * objects storage. In this case, the unique identifier must be retrieved from the Archive during
    * storage
    */
-  protected LongList storeAndGenerateMultiplePValobjId(final ParameterValueList pVals,
+  protected LongList storeAndGenerateMultiplePValobjId(final HeterogeneousList pVals,
       final LongList relatedList, final ObjectIdList sourcesList,
       final SingleConnectionDetails connectionDetails, final FineTimeList timestamps)
   {
@@ -520,7 +521,7 @@ public class ParameterManager extends MCManager
 
         //in case the ParameterName never existed before, create a new identity
         if (identityId == null) {
-          IdentifierList names = new IdentifierList();
+          HeterogeneousList names = new HeterogeneousList();
           names.add(name);
           //add to the archive
           LongList identityIds = super.getArchiveService().store(true,
@@ -533,7 +534,7 @@ public class ParameterManager extends MCManager
         }
 
         //not matter if the parameter was created or loaded, a new definition will be created
-        ParameterDefinitionDetailsList defs = new ParameterDefinitionDetailsList();
+        HeterogeneousList defs = new HeterogeneousList();
         defs.add(definition);
         LongList defIds = super.getArchiveService().store(true,
             ParameterServiceInfo.PARAMETERDEFINITION_OBJECT_TYPE,
@@ -581,7 +582,7 @@ public class ParameterManager extends MCManager
 
     } else {  // update in the COM Archive
       try {
-        ParameterDefinitionDetailsList defs = new ParameterDefinitionDetailsList();
+        HeterogeneousList defs = new HeterogeneousList();
         defs.add(definition);
 
         //create a new ParameterDefinition 

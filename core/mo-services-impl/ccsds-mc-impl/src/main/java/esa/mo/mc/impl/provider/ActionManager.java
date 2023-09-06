@@ -40,6 +40,7 @@ import org.ccsds.moims.mo.com.structures.ObjectKey;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -110,7 +111,7 @@ public final class ActionManager extends MCManager {
 //                this.save();
             return this.uniqueObjIdAIns;
         } else {
-            ActionInstanceDetailsList aValList = new ActionInstanceDetailsList(1);
+            HeterogeneousList aValList = new HeterogeneousList();
             aValList.add(aIns);
 
             try {
@@ -158,7 +159,7 @@ public final class ActionManager extends MCManager {
 
                 //in case the ActionName never existed before, create a new identity
                 if (identityId == null) {
-                    IdentifierList names = new IdentifierList(1);
+                    HeterogeneousList names = new HeterogeneousList();
                     //requirement: 3.2.4.b
                     names.add(name);
                     //add identity to the archive 3.2.7.a
@@ -172,7 +173,7 @@ public final class ActionManager extends MCManager {
                     //there is only one identity created, so get the id and set it as the related id
                     identityId = identityIds.get(0);
                 }
-                ActionDefinitionDetailsList defs = new ActionDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(actionDefDetails);
                 //add definition to the archive requirement: 3.2.7.b
                 LongList defIds = super.getArchiveService().store(true,
@@ -205,7 +206,7 @@ public final class ActionManager extends MCManager {
 
         } else {  // update in the COM Archive
             try {
-                ActionDefinitionDetailsList defs = new ActionDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(definition);
 
                 //create a new ActionDefinition 

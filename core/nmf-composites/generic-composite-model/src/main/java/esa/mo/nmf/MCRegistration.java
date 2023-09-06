@@ -39,6 +39,7 @@ import org.ccsds.moims.mo.com.structures.ObjectType;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -483,7 +484,7 @@ public class MCRegistration {
             final ObjectType objType) throws MALException, MALInteractionException {
         final IdentifierList domain = ConfigurationProviderSingleton.getDomain();
         final ArchiveDetailsList archiveDetailsList = HelperArchive.generateArchiveDetailsList(null, null, PROVIDER_URI);
-        final IdentifierList names = new IdentifierList();
+        final HeterogeneousList names = new HeterogeneousList();
 
         Random rand = new Random();
 
@@ -506,13 +507,16 @@ public class MCRegistration {
         for (int i = 0; i < archiveDetailsList.size(); i++) {
             archiveDetailsList.get(i).setDetails(new ObjectDetails(conversionIdentityObjIds.get(i), null));
         }
+        
+        HeterogeneousList myList = new HeterogeneousList();
+        myList.addAll(conversions);
 
         comServices.getArchiveService().store(
                 false,
                 objType,
                 domain,
                 archiveDetailsList,
-                conversions,
+                myList,
                 null);
 
         ObjectIdList output = new ObjectIdList();

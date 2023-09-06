@@ -38,6 +38,7 @@ import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.structures.Attribute;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.LongList;
 import org.ccsds.moims.mo.mal.structures.Time;
@@ -177,7 +178,7 @@ public final class StatisticManager {
             }
             return this.uniqueObjIdAIns;
         } else {
-            StatisticValueList sValList = new StatisticValueList();
+            HeterogeneousList sValList = new HeterogeneousList();
             sValList.add(sVal);
 
             try {
@@ -285,7 +286,7 @@ public final class StatisticManager {
                 newLinkId = linkIds.get(0);
 
                 // store the StatisticLinkDefinition object
-                StatisticLinkDetailsList linkDetails = new StatisticLinkDetailsList();
+                HeterogeneousList linkDetails = new HeterogeneousList();
                 linkDetails.add(statLink.getLinkDetails());
 
                 LongList linkDefIds = comServices.getArchiveService().store( //requirement: 3.6.6.b, 3.6.13.2.i
@@ -319,7 +320,7 @@ public final class StatisticManager {
             newLinkDefId = ++uniqueObjIdLinkDef; // This line as to go before any writing (because it's initialized as zero and that's the wildcard)
         } else {
             try {
-                StatisticLinkDetailsList links = new StatisticLinkDetailsList();
+                HeterogeneousList links = new HeterogeneousList();
                 links.add(statLink.getLinkDetails());
 
                 LongList linkDefIds = comServices.getArchiveService().store( //requirement: 3.6.15.2.i

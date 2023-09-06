@@ -58,6 +58,7 @@ import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -211,7 +212,7 @@ public class AppsLauncherManager extends DefinitionsManager
 
   private LongList addAppToArchive(final AppDetails definition, final ObjectId source, final URI uri, Long objId,
       Long related) throws MALException, MALInteractionException {
-    AppDetailsList defs = new AppDetailsList();
+    HeterogeneousList defs = new HeterogeneousList();
     defs.add(definition);
     final ArchiveDetailsList archDetails = HelperArchive.generateArchiveDetailsList(related,
         source, ConfigurationProviderSingleton.getNetwork(), uri, objId);
@@ -244,7 +245,7 @@ public class AppsLauncherManager extends DefinitionsManager
 
   private void updateAppInArchive(final Long objId, final AppDetails definition, final MALInteraction interaction)
       throws MALException, MALInteractionException {
-    AppDetailsList defs = new AppDetailsList();
+    HeterogeneousList defs = new HeterogeneousList();
     defs.add(definition);
     final IdentifierList domain = ConfigurationProviderSingleton.getDomain();
 

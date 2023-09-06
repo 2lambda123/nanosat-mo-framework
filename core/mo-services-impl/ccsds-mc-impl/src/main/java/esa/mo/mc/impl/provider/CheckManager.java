@@ -42,6 +42,7 @@ import org.ccsds.moims.mo.com.structures.ObjectType;
 import org.ccsds.moims.mo.mal.MALElementsRegistry;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -244,7 +245,7 @@ public final class CheckManager extends CheckLinksManager {
                 if (identityId == null) {
                     //  requirement: 3.5.16.2.k
                     //Store Identity Object
-                    IdentifierList names = new IdentifierList();
+                    HeterogeneousList names = new HeterogeneousList();
                     names.add(new Identifier(name));
                     LongList identityIds = super.getArchiveService().store( //requirement: 3.5.7.a
                             true,
@@ -338,7 +339,7 @@ public final class CheckManager extends CheckLinksManager {
         }
         try {
             //Store the new CheckLinkDefinition-Object
-            CheckLinkDetailsList linkDetails = new CheckLinkDetailsList();
+            HeterogeneousList linkDetails = new HeterogeneousList();
             linkDetails.add(checkLinkDetails);
             LongList checkLinkDefIds = super.getArchiveService().store( //requirement: 3.5.7.d
                     true,
@@ -381,7 +382,7 @@ public final class CheckManager extends CheckLinksManager {
                 checkLinkId = checkLinkIds.get(0);
 
                 //Store the CheckLinkDefinition-Object
-                CheckLinkDetailsList linkDetails = new CheckLinkDetailsList();
+                HeterogeneousList linkDetails = new HeterogeneousList();
                 linkDetails.add(linkDetail);
                 LongList checkLinkDefIds = super.getArchiveService().store( //requirement: 3.5.7.d
                         true,

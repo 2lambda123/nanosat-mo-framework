@@ -54,6 +54,7 @@ import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
 import org.ccsds.moims.mo.mal.structures.UInteger;
@@ -184,7 +185,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
         }
 
         ArchiveDetailsList outArchiveDetailsList = new ArchiveDetailsList();
-        ElementList outMatchedObjects = null;
+        HeterogeneousList outMatchedObjects = null;
 
         for (int index = 0; index < longList.size(); index++) {  // Let's go one by one in the list
             Long objId = longList.get(index);
@@ -206,7 +207,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
 
             if (outMatchedObjects == null) {  // Initialize the elementList object
                 try {
-                    outMatchedObjects = MALElementsRegistry.elementToElementList((Element) perObj.getObject());
+                    outMatchedObjects = new HeterogeneousList();
 
                     if (outMatchedObjects != null) { // Was it created?
                         for (int j = 0; j < index; j++) { // Insert the missing elements in the list
@@ -222,7 +223,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
             }
 
             if (outMatchedObjects != null) {
-                outMatchedObjects.add(perObj.getObject()); // requirement: 3.4.3.2.10 and 3.4.3.2.11
+                outMatchedObjects.add((Element) perObj.getObject()); // requirement: 3.4.3.2.10 and 3.4.3.2.11
             }
         }
 
@@ -353,7 +354,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
                 // Then we need to send data sequentially... object by object
                 for (int j = 0; j < perObjs.size(); j++) {
                     // requirement: 3.4.4.2.21
-                    ElementList outObjectList = null;
+                    HeterogeneousList outObjectList = new HeterogeneousList();
 
                     ArchiveDetailsList outArchDetLst = new ArchiveDetailsList();
                     outArchDetLst.add(perObjs.get(j).getArchiveDetails());
@@ -361,14 +362,14 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
                     if (returnObjBody == true) {
                         // requirement: 3.4.4.2.1
                         try {  // Let's try to generate the list...
-                            outObjectList = MALElementsRegistry.elementToElementList((Element) perObjs.get(j).getObject());
+                            outObjectList = new HeterogeneousList();
                         } catch (Exception ex) { // The list could not be generated
                             Logger.getLogger(ArchiveProviderServiceImpl.class.getName()).log(Level.SEVERE, "The outObjectList could not be generated!", ex);
                             continue;
                         }
 
                         if (outObjectList != null) {
-                            outObjectList.add(perObjs.get(j).getObject()); // requirement: 3.4.4.2.24
+                            outObjectList.add((Element) perObjs.get(j).getObject()); // requirement: 3.4.4.2.24
                         }
                     }
 
@@ -391,11 +392,11 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
                 // Find the objIds based on the query
                 // requirement: 3.4.4.2.10 and 3.4.4.2.11 and 3.4.4.2.12 and 3.4.4.2.13 and 3.4.4.2.15 and 3.4.4.2.16
                 ArchiveDetailsList outArchiveDetailsList = new ArchiveDetailsList();
-                ElementList outObjectList = null;
+                HeterogeneousList outObjectList = null;
 
                 if (returnObjBody == true && !perObjs.isEmpty()) { // requirement: 3.4.4.2.24
                     try {
-                        outObjectList = MALElementsRegistry.elementToElementList((Element) perObjs.get(0).getObject());
+                        outObjectList = new HeterogeneousList();
                     } catch (Exception ex) {
                         Logger.getLogger(ArchiveProviderServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -405,7 +406,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
                     outArchiveDetailsList.add(perObjs.get(j).getArchiveDetails());
 
                     if (outObjectList != null) {
-                        outObjectList.add(perObjs.get(j).getObject());
+                        outObjectList.add((Element) perObjs.get(j).getObject());
                     }
                 }
 
@@ -517,7 +518,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
     @Override
     public LongList store(final Boolean returnObjId, final ObjectType objType,
             final IdentifierList domain, final ArchiveDetailsList lArchiveDetailsList,
-            final ElementList lElementList, final MALInteraction interaction)
+            final HeterogeneousList lElementList, final MALInteraction interaction)
             throws MALException, MALInteractionException {
         UIntegerList invIndexList = new UIntegerList();
         UIntegerList dupIndexList;
@@ -614,7 +615,7 @@ public class ArchiveProviderServiceImpl extends ArchiveInheritanceSkeleton {
     public void update(final ObjectType lObjectType,
             final IdentifierList domain,
             final ArchiveDetailsList lArchiveDetailsList,
-            final ElementList lElementList,
+            final HeterogeneousList lElementList,
             final MALInteraction interaction) throws MALException, MALInteractionException {
         UIntegerList unkIndexList = new UIntegerList();
         UIntegerList invIndexList = new UIntegerList();

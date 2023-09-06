@@ -32,9 +32,11 @@ import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.LongList;
 import org.ccsds.moims.mo.mal.structures.URI;
+import org.ccsds.moims.mo.mal.structures.Union;
 import org.ccsds.moims.mo.platform.gps.GPSServiceInfo;
 import org.ccsds.moims.mo.platform.gps.structures.NearbyPositionDefinition;
 import org.ccsds.moims.mo.platform.gps.structures.NearbyPositionDefinitionList;
@@ -93,7 +95,7 @@ public final class GPSManager extends DefinitionsManager {
             this.addDef(uniqueObjIdDef, definition);
             return uniqueObjIdDef;
         }else{
-            NearbyPositionDefinitionList defs = new NearbyPositionDefinitionList();
+            HeterogeneousList defs = new HeterogeneousList();
             defs.add(definition);
 
             try {
@@ -127,8 +129,8 @@ public final class GPSManager extends DefinitionsManager {
     protected Long storeAndGenerateNearbyPositionAlertId(final Boolean inside, 
             final Long objId, final URI uri) {
         if (super.getArchiveService() != null) {
-            BooleanList isEnteringList = new BooleanList();
-            isEnteringList.add(inside);
+            HeterogeneousList isEnteringList = new HeterogeneousList();
+            isEnteringList.add(new Union(inside));
 
             try {  // requirement: 3.3.4.2
                 LongList objIds = super.getArchiveService().store(

@@ -68,6 +68,7 @@ import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Blob;
 import org.ccsds.moims.mo.mal.structures.ElementList;
 import org.ccsds.moims.mo.mal.structures.FineTime;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.IntegerList;
@@ -485,7 +486,7 @@ public class ArchiveSyncProviderServiceImpl extends ArchiveSyncInheritanceSkelet
 
       @Override
       public void queryResponseReceived(MALMessageHeader msgHeader, ObjectType objType,
-          IdentifierList domain, ArchiveDetailsList objDetails, ElementList objBodies,
+          IdentifierList domain, ArchiveDetailsList objDetails, HeterogeneousList objBodies,
           Map qosProperties) {
         super.queryResponseReceived(msgHeader, objType, domain, objDetails, objBodies, qosProperties);
         if (objType == null || domain == null || objDetails == null || objBodies == null) {
@@ -526,7 +527,7 @@ public class ArchiveSyncProviderServiceImpl extends ArchiveSyncInheritanceSkelet
 
       @Override
       public void queryUpdateReceived(MALMessageHeader msgHeader, ObjectType objType,
-          IdentifierList domain, ArchiveDetailsList objDetails, ElementList objBodies,
+          IdentifierList domain, ArchiveDetailsList objDetails, HeterogeneousList objBodies,
           Map qosProperties) {
         super.queryUpdateReceived(msgHeader, objType, domain, objDetails, objBodies, qosProperties);
         if (objDetails != null) {

@@ -31,6 +31,7 @@ import org.ccsds.moims.mo.com.archive.structures.ArchiveDetailsList;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.UOctet;
 import org.ccsds.moims.mo.mc.parameter.ParameterServiceInfo;
 import org.ccsds.moims.mo.mc.parameter.structures.ParameterValue;
@@ -99,7 +100,7 @@ public class StoreParameters {
             try {
                 for (int i = 0; i < values.size(); i++) {
                     ArchiveDetailsList xxx = new ArchiveDetailsList();
-                    ParameterValueList yyy = new ParameterValueList();
+                    HeterogeneousList yyy = new HeterogeneousList();
                     xxx.add(archDetails.get(0));
                     yyy.add(values.get(i));
 

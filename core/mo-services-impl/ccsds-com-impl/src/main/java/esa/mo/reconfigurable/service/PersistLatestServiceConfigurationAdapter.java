@@ -37,6 +37,7 @@ import org.ccsds.moims.mo.common.structures.ServiceKeyList;
 import org.ccsds.moims.mo.mal.MALContextFactory;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.LongList;
 import org.ccsds.moims.mo.mal.structures.URI;
 
@@ -105,7 +106,7 @@ public class PersistLatestServiceConfigurationAdapter implements ConfigurationCh
                 // Stuff to feed the update operation from the Archive...
                 ArchiveDetailsList details = HelperArchive.generateArchiveDetailsList(null, null,
                         ConfigurationProviderSingleton.getNetwork(), new URI(""), configObjectsObjId);
-                ConfigurationObjectDetailsList confObjsList = new ConfigurationObjectDetailsList();
+                HeterogeneousList confObjsList = new HeterogeneousList();
                 confObjsList.add(serviceImpl.getCurrentConfiguration());
 
                 try {
@@ -129,7 +130,7 @@ public class PersistLatestServiceConfigurationAdapter implements ConfigurationCh
     public final void storeDefaultServiceConfiguration(final Long defaultObjId, final ReconfigurableService service) {
         try {
             // Store the Service Configuration objects
-            ConfigurationObjectDetailsList archObj1 = new ConfigurationObjectDetailsList();
+            HeterogeneousList archObj1 = new HeterogeneousList();
             archObj1.add(service.getCurrentConfiguration());
 
             LongList objIds1 = archiveService.store(
@@ -142,7 +143,7 @@ public class PersistLatestServiceConfigurationAdapter implements ConfigurationCh
                     null);
 
             // Store the Service Configuration
-            ServiceKeyList serviceKeyList = new ServiceKeyList();
+            HeterogeneousList serviceKeyList = new HeterogeneousList();
             serviceKeyList.add(new ServiceKey(service.getCOMService().getAreaNumber(),
                     service.getCOMService().getServiceNumber(), service.getCOMService().getServiceVersion()));
 

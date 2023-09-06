@@ -35,6 +35,7 @@ import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.FineTime;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -196,7 +197,7 @@ public final class AggregationManager extends MCManager {
             uniqueObjIdAVal++;
             return this.uniqueObjIdAVal;
         } else {
-            AggregationValueList aValList = new AggregationValueList();
+            HeterogeneousList aValList = new HeterogeneousList();
             aValList.add(aVal);
 
             try {
@@ -781,7 +782,7 @@ public final class AggregationManager extends MCManager {
 
                 //in case the AggregationName never existed before, create a new identity
                 if (identityId == null) {
-                    IdentifierList names = new IdentifierList();
+                    HeterogeneousList names = new HeterogeneousList();
                     names.add(name);
                     //add to the archive
                     LongList identityIds = super.getArchiveService().store(true,
@@ -794,7 +795,7 @@ public final class AggregationManager extends MCManager {
                 }
 
                 //not matter if the Aggregation was created or loaded, a new definition will be created
-                AggregationDefinitionDetailsList defs = new AggregationDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(definition);
                 LongList defIds = super.getArchiveService().store(true,
                         AggregationServiceInfo.AGGREGATIONDEFINITION_OBJECT_TYPE,
@@ -846,7 +847,7 @@ public final class AggregationManager extends MCManager {
 
         } else {  // update in the COM Archive
             try {
-                AggregationDefinitionDetailsList defs = new AggregationDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(definition);
 
                 //requirement 3.7.6.a

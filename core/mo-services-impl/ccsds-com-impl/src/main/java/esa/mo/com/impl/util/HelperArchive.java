@@ -48,6 +48,7 @@ import org.ccsds.moims.mo.mal.provider.MALInvoke;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.ElementList;
 import org.ccsds.moims.mo.mal.structures.FineTime;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -394,7 +395,7 @@ public class HelperArchive {
 
             @Override
             public synchronized MALMessage sendResponse(ArchiveDetailsList objDetails,
-                    ElementList objBodies) throws MALInteractionException, MALException {
+                    HeterogeneousList objBodies) throws MALInteractionException, MALException {
                 if (objBodies != null) {
                     if (!objBodies.isEmpty()) {
                         this.obj = objBodies;
@@ -476,7 +477,7 @@ public class HelperArchive {
 
             @Override
             public void retrieveResponseReceived(MALMessageHeader msgHeader,
-                    ArchiveDetailsList objDetails, ElementList objBodies, Map qosProperties) {
+                    ArchiveDetailsList objDetails, HeterogeneousList objBodies, Map qosProperties) {
 
                 if (objBodies != null) {
                     if (!objBodies.isEmpty()) {

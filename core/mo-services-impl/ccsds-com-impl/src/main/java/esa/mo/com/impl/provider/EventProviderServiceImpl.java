@@ -41,11 +41,9 @@ import org.ccsds.moims.mo.com.structures.ObjectId;
 import org.ccsds.moims.mo.com.structures.ObjectIdList;
 import org.ccsds.moims.mo.com.structures.ObjectType;
 import org.ccsds.moims.mo.mal.MALContextFactory;
-import org.ccsds.moims.mo.mal.MALElementsRegistry;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALHelper;
 import org.ccsds.moims.mo.mal.MALInteractionException;
-import org.ccsds.moims.mo.mal.NotFoundException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
@@ -53,6 +51,7 @@ import org.ccsds.moims.mo.mal.structures.AttributeList;
 import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -187,21 +186,16 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
 
         ObjectDetailsList objectDetailsList = new ObjectDetailsList();
         objectDetailsList.add(new ObjectDetails(related, source));
-        ElementList events = null;
+        HeterogeneousList events = new HeterogeneousList();
 
-        try {
-            if (eventObjBody != null) {  // Do we have a null as input?
-                // Is it a list already?
-                if (eventObjBody instanceof java.util.ArrayList) {
-                    events = (ElementList) eventObjBody;    // Then just cast it to ElementList
-                } else {
-                    // Else, convert it to ElementList
-                    events = MALElementsRegistry.elementToElementList(eventObjBody);
-                    events.add(eventObjBody);
-                }
+        if (eventObjBody != null) {  // Do we have a null as input?
+            // Is it a list already?
+            if (eventObjBody instanceof java.util.ArrayList) {
+                events.addAll((ElementList) eventObjBody);    // Then just cast it to ElementList
+            } else {
+                // Else, convert it to ElementList
+                events.add(eventObjBody);
             }
-        } catch (NotFoundException ex) {
-            Logger.getLogger(EventProviderServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Store it!!
@@ -407,7 +401,7 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
             }
         }
 
-        ElementList events = null;
+        HeterogeneousList events = null;
         Identifier network = ConfigurationProviderSingleton.getNetwork();
         URI uri = null;
 
@@ -474,7 +468,7 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
      * Stores an Event in the Archive
      */
     private Long storeEventOnArchive(final ObjectDetailsList objectDetailsList, final IdentifierList domain,
-            final ObjectType objType, final ElementList events, final MALInteraction interaction) {
+            final ObjectType objType, final HeterogeneousList events, final MALInteraction interaction) {
         if (interaction != null) {
             return this.storeEventOnArchive(objectDetailsList, domain, objType,
                     events, interaction.getMessageHeader().getFromURI(), null);
@@ -488,7 +482,7 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
      * Stores an Event in the Archive
      */
     private Long storeEventOnArchive(final ObjectDetailsList objectDetailsList, final IdentifierList domain,
-            final ObjectType objType, final ElementList events, URI uri, Identifier network) {
+            final ObjectType objType, final HeterogeneousList events, URI uri, Identifier network) {
 
         if (this.archiveService == null) {
             return null;

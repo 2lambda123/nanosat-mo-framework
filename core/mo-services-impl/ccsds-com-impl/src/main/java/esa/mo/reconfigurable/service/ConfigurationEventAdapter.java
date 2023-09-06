@@ -43,6 +43,7 @@ import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.BooleanList;
 import org.ccsds.moims.mo.mal.structures.Element;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -124,7 +125,7 @@ public class ConfigurationEventAdapter extends EventAdapter implements Serializa
         // Check if it is a "Current Configuration Store"
         if (eventObjNumber.toString().equals(ConfigurationServiceInfo.CONFIGURATIONSTORE_OBJECT_NUMBER.toString())) {
             ConfigurationObjectDetails set = serviceImpl.getCurrentConfiguration();
-            ConfigurationObjectDetailsList bodies = new ConfigurationObjectDetailsList();
+            HeterogeneousList bodies = new HeterogeneousList();
             bodies.add(set);
 
             // For the ConfigurationObjects:

@@ -30,6 +30,7 @@ import org.ccsds.moims.mo.com.archive.structures.ArchiveDetailsList;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Duration;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.LongList;
 import org.ccsds.moims.mo.mal.structures.UOctet;
 import org.ccsds.moims.mo.mc.aggregation.AggregationServiceInfo;
@@ -114,7 +115,7 @@ public class StoreAggregations {
 
                 for (int i = 0; i < defs.size(); i++) {
                     ArchiveDetailsList xxx = new ArchiveDetailsList();
-                    AggregationDefinitionDetailsList yyy = new AggregationDefinitionDetailsList();
+                    HeterogeneousList yyy = new HeterogeneousList();
                     xxx.add(archDetails.get(0));
                     yyy.add(defs.get(i));
 

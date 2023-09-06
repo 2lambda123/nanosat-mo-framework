@@ -52,6 +52,7 @@ import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.structures.Element;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.IntegerList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -180,7 +181,7 @@ public class CommandExecutorProviderServiceImpl extends CommandExecutorInheritan
     // we don't need such fine tracking...
     final ArchiveDetailsList archDetails = HelperArchive.generateArchiveDetailsList(null, null,
         connection.getPrimaryConnectionDetails().getProviderURI());
-    final CommandDetailsList objBodies = new CommandDetailsList(1);
+    final HeterogeneousList objBodies = new HeterogeneousList();
     objBodies.add(command);
     LongList objIds = archiveService.store(
         true,
@@ -303,7 +304,7 @@ public class CommandExecutorProviderServiceImpl extends CommandExecutorInheritan
     final ArchiveDetailsList archDetails = HelperArchive.generateArchiveDetailsList(null, null,
         ConfigurationProviderSingleton.getNetwork(),
         connection.getPrimaryConnectionDetails().getProviderURI(), objId);
-    final CommandDetailsList objBodies = new CommandDetailsList(1);
+    final HeterogeneousList objBodies = new HeterogeneousList();
     objBodies.add(command);
     try {
       archiveService.update(

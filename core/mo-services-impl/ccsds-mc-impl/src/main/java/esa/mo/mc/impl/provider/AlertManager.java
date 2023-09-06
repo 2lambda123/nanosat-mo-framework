@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import org.ccsds.moims.mo.com.structures.ObjectId;
 import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.LongList;
@@ -84,7 +85,7 @@ public final class AlertManager extends MCManager {
 
                 //in case the AlertName never existed before, create a new identity
                 if (identityId == null) {
-                    IdentifierList names = new IdentifierList();
+                    HeterogeneousList names = new HeterogeneousList();
                     names.add(name);
                     //add to the archive; requirement: 3.4.7.a
                     LongList identityIds = super.getArchiveService().store(true,
@@ -97,7 +98,7 @@ public final class AlertManager extends MCManager {
                     //there is only one identity created, so get the id and set it as the related id
                     identityId = identityIds.get(0);
                 }
-                AlertDefinitionDetailsList defs = new AlertDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(definition);
                 //add to the archive; requirement: 3.4.7.a
                 LongList defIds = super.getArchiveService().store(true,
@@ -130,7 +131,7 @@ public final class AlertManager extends MCManager {
             newDefId = uniqueObjIdDef;
         } else { // update in the COM Archive        
             try {
-                AlertDefinitionDetailsList defs = new AlertDefinitionDetailsList();
+                HeterogeneousList defs = new HeterogeneousList();
                 defs.add(definition);
                 //create a new AlertDefinition and add to the archive; requirement: 3.4.7.a
                 LongList defIds = super.getArchiveService().store(true,

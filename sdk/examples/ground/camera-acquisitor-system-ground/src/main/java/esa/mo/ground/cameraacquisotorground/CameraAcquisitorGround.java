@@ -62,6 +62,7 @@ import org.ccsds.moims.mo.mal.MALException;
 import org.ccsds.moims.mo.mal.MALInteractionException;
 import org.ccsds.moims.mo.mal.structures.Attribute;
 import org.ccsds.moims.mo.mal.structures.ElementList;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 import org.ccsds.moims.mo.mal.structures.Identifier;
 import org.ccsds.moims.mo.mal.structures.IdentifierList;
 import org.ccsds.moims.mo.mal.structures.Subscription;
@@ -590,7 +591,7 @@ public class CameraAcquisitorGround
 
     @Override
     public void queryResponseReceived(MALMessageHeader msgHeader, ObjectType objType,
-        IdentifierList domain, ArchiveDetailsList objDetails, ElementList objBodies,
+        IdentifierList domain, ArchiveDetailsList objDetails, HeterogeneousList objBodies,
         Map qosProperties)
     {
       if (objBodies != null) {
@@ -635,7 +636,7 @@ public class CameraAcquisitorGround
     @Override
     public void queryUpdateReceived(MALMessageHeader msgHeader, ObjectType objType,
         IdentifierList domain, ArchiveDetailsList objDetails,
-        ElementList objBodies,
+        HeterogeneousList objBodies,
         Map qosProperties)
     {
       queryResponseReceived(msgHeader, objType, domain, objDetails, objBodies, qosProperties);

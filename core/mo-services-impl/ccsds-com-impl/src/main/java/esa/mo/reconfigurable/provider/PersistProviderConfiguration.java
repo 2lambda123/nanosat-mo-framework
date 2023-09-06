@@ -49,6 +49,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.ccsds.moims.mo.common.configuration.ConfigurationServiceInfo;
+import org.ccsds.moims.mo.mal.structures.HeterogeneousList;
 
 /**
  * This class is responsible for storing the configuration of a provider in the
@@ -108,7 +109,7 @@ public class PersistProviderConfiguration {
             }
 
             // Store the provider configuration objects
-            ConfigurationObjectDetailsList archObj = new ConfigurationObjectDetailsList(1);
+            HeterogeneousList archObj = new HeterogeneousList();
             ConfigurationObjectSetList setList = new ConfigurationObjectSetList(1);
             ConfigurationObjectSet set = new ConfigurationObjectSet(ConfigurationServiceInfo.SERVICECONFIGURATION_OBJECT_TYPE,
             ConfigurationProviderSingleton.getDomain(),
@@ -132,7 +133,7 @@ public class PersistProviderConfiguration {
                     null, ConfigurationProviderSingleton.getNetwork(),
                     new URI(""), confId.getKey().getInstId());
 
-            IdentifierList providerNameList = new IdentifierList(1);
+            HeterogeneousList providerNameList = new HeterogeneousList();
             providerNameList.add(provider.getProviderName());
 
             this.archiveService.store(
