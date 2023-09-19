@@ -123,7 +123,7 @@ public class ProtocolBridgeSPP extends ProtocolBridge {
                         Properties props = new Properties(System.getProperties());
                         int apid = VirtualSPPURIsManager.getAPIDFromVirtualSPPURI(virtualURIs);
                         props.put("org.ccsds.moims.mo.malspp.apid", apid);
-                        ep = transportA.createEndpoint(virtualURIs, props);
+                        ep = transportA.createEndpoint(virtualURIs, props, null);
                         ep.setMessageListener(new BridgeMessageHandlerSPP(ep, epOther));
                         ep.startMessageDelivery();
                     }
