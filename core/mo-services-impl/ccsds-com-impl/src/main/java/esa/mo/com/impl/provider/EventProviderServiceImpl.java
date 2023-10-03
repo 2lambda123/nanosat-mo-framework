@@ -48,6 +48,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeType;
 import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.Element;
 import org.ccsds.moims.mo.mal.structures.ElementList;
@@ -262,7 +263,12 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
                     keyNames.add(new Identifier("K2"));
                     keyNames.add(new Identifier("K3"));
                     keyNames.add(new Identifier("K4"));
-                    publisher.register(keyNames, new AttributeTypeList(), new PublishInteractionListener());
+                    AttributeTypeList keyTypes = new AttributeTypeList();
+                    keyTypes.add(AttributeType.IDENTIFIER);
+                    keyTypes.add(AttributeType.LONG);
+                    keyTypes.add(AttributeType.LONG);
+                    keyTypes.add(AttributeType.LONG);
+                    publisher.register(keyNames, keyTypes, new PublishInteractionListener());
                     isRegistered = true;
                 }
             }
@@ -343,7 +349,12 @@ public class EventProviderServiceImpl extends EventInheritanceSkeleton {
                     keyNames.add(new Identifier("K2"));
                     keyNames.add(new Identifier("K3"));
                     keyNames.add(new Identifier("K4"));
-                    publisher.register(keyNames, new AttributeTypeList(), new PublishInteractionListener());
+                    AttributeTypeList keyTypes = new AttributeTypeList();
+                    keyTypes.add(AttributeType.IDENTIFIER);
+                    keyTypes.add(AttributeType.LONG);
+                    keyTypes.add(AttributeType.LONG);
+                    keyTypes.add(AttributeType.LONG);
+                    publisher.register(keyNames, keyTypes, new PublishInteractionListener());
                     isRegistered = true;
                 }
             }

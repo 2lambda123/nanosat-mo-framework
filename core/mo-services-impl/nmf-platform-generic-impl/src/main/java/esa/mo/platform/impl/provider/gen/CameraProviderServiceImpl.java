@@ -40,6 +40,7 @@ import org.ccsds.moims.mo.mal.provider.MALInteraction;
 import org.ccsds.moims.mo.mal.provider.MALProvider;
 import org.ccsds.moims.mo.mal.provider.MALPublishInteractionListener;
 import org.ccsds.moims.mo.mal.structures.AttributeList;
+import org.ccsds.moims.mo.mal.structures.AttributeType;
 import org.ccsds.moims.mo.mal.structures.AttributeTypeList;
 import org.ccsds.moims.mo.mal.structures.Duration;
 import org.ccsds.moims.mo.mal.structures.Identifier;
@@ -176,7 +177,12 @@ public class CameraProviderServiceImpl extends CameraInheritanceSkeleton
           keys.add(new Identifier("objId"));
           keys.add(new Identifier("width"));
           keys.add(new Identifier("height"));
-          publisher.register(keys, new AttributeTypeList(), new PublishInteractionListener());
+          AttributeTypeList keyTypes = new AttributeTypeList();
+          keyTypes.add(AttributeType.IDENTIFIER);
+          keyTypes.add(AttributeType.LONG);
+          keyTypes.add(AttributeType.LONG);
+          keyTypes.add(AttributeType.LONG);
+          publisher.register(keys, keyTypes, new PublishInteractionListener());
           isRegistered = true;
         }
 
